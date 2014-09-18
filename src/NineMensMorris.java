@@ -1,5 +1,5 @@
 
-public class NineMansMorris {
+public class NineMensMorris {
   public static void main(String[] args) {
     
   }
