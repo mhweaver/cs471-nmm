@@ -63,4 +63,8 @@ public class Board {
     nodes[22].setRight(nodes[23]);// 22 & 23 done
     
   }
+  
+  public Node getNode(int i) {
+    return nodes[i];
+  }
 }

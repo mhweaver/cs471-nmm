@@ -6,6 +6,8 @@ public class Game {
   // Phase 3: Flying
   private int phase;
   
+  private int turnsPlayed = 0;
+  
   protected Board board;
   protected Player[] players;
   protected Player currentPlayer;
@@ -31,9 +33,23 @@ public class Game {
     if (currentPlayer != player) {
       throw new IllegalMoveException("Pieces can only be placed during the current player's turn");
     }
-    // if there's a piece at location, exception
+    
+    Node n = board.getNode(location);
+    if (n.getPlayer() != null) {
+      throw new IllegalMoveException("Pieces can only be placed on empty spots");
+    }
     // any other cases to not allow?
     
-    // put a piece at location. I'm thinking maybe add a color variable to Node. Or maybe track which player owns the node, since color = player...
+    n.setPlayer(player);
+    if (n.mill()) {
+      // TODO Let player remove piece
+    } else {
+      nextTurn();
+    }
+  }
+
+  private void nextTurn() {
+    currentPlayer = (currentPlayer == players[0] ? players[1] : players[0]);
+    turnsPlayed++;
   }
 }
