@@ -1,3 +1,4 @@
+package main;
 
 public class Player {
   public static enum Color { BLACK, WHITE }

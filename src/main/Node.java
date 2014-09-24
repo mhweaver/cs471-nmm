@@ -1,3 +1,4 @@
+package main;
 //Created By: Matthew Gillatt
 public class Node {
   protected Node left, right, up, down;
