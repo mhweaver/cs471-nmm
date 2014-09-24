@@ -1,6 +1,6 @@
 //Created By: Matthew Gillatt
 public class Node {
-  private Node left, right, up, down;
+  protected Node left, right, up, down;
   private Player player = null;
   
   //Node stuff right
@@ -30,13 +30,27 @@ public class Node {
   public void setPlayer(Player player) {
     this.player = player;
   }
+  
+  
+  /** Check if this Node is part of a mill
+   * @return true, if this Node is part of a mill; false, otherwise
+   */
   public boolean mill() {
-    // TODO Auto-generated method stub
+    // TODO: mill() REALLY needs tested. (I think it should work, but...)
+    // Move both the far left and far top, in a straight line, from this node
+    Node farLeft, farUp;
+    farLeft = farUp = this;
+    for (; farLeft.left != null; farLeft = farLeft.left);
+    for (; farUp.up != null; farUp = farUp.up);
     
-    // possible, simple algorithm to check to see if this piece is part of a mill:
-    // Move all the way to the left, then check the 2 nodes to the right
-    // else
-    // Move all the way up, then check the 2 nodes below
-    return false;
+    // If the farLeft, farLeft.right, and farLeft.right.right all belong to this node's player
+    // or farUp, farUp.down, and farUp.down.down all belong to this node's player, then return true
+    return (farLeft.player == this.player &&
+            farLeft.right != null && farLeft.right.player == this.player &&
+            farLeft.right.right != null && farLeft.right.right.player == this.player) ||
+           (farUp.player == this.player &&
+            farUp.down != null && farUp.down.player == this.player &&
+            farUp.down.down != null && farUp.down.down.player == this.player);
+    
   }
 }
