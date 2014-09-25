@@ -46,11 +46,35 @@ public class Game {
     // any other cases to not allow?
     
     n.setPlayer(player);
+    // TODO: make any appropriate changes to the player (number of pieces left to place, etc)
+    
     if (n.mill()) {
       removeTurn = true;
     } else {
       nextTurn();
     }
+  }
+  
+  public void removePiece(Player player, int location) throws IllegalMoveException {
+    if (!removeTurn) {
+      throw new IllegalMoveException("It is not an appropriate time to remove a piece");
+    }
+    if (currentPlayer != player) {
+      throw new IllegalMoveException("Wrong player");
+    }
+    
+    Node n = board.getNode(location);
+    if (n.getPlayer() == null) {
+      throw new IllegalMoveException("No piece to remove");
+    }
+    if (n.getPlayer() != currentPlayer) {
+      throw new IllegalMoveException("Wrong player");
+    }
+    
+    n.setPlayer(null);
+    //TODO: make any appropriate changes to the player (number of pieces left to place, etc)
+    
+    removeTurn = false;
   }
 
   private void nextTurn() {
