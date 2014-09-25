@@ -8,6 +8,7 @@ public class Game {
   private int phase;
   
   private int turnsPlayed = 0;
+  private boolean removeTurn = false; // Does someone need to remove a piece this turn?
   
   protected Board board;
   protected Player[] players;
@@ -28,6 +29,9 @@ public class Game {
   }
   
   public void placePiece(Player player, int location) throws IllegalMoveException {
+    if (removeTurn) {
+      throw new IllegalMoveException("A piece needs to be removed before a new piece can be placed");
+    }
     if (phase != 1) {
       throw new IllegalMoveException("Pieces can only be placed in phase 1");
     }
@@ -43,7 +47,7 @@ public class Game {
     
     n.setPlayer(player);
     if (n.mill()) {
-      // TODO Let player remove piece
+      removeTurn = true;
     } else {
       nextTurn();
     }
