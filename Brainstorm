@@ -25,3 +25,16 @@ Board layout and node ID numbers:
 |    18-------19------20     |
 |             |              |
 21------------22------------23
+
+09/25/14 3:00pm Meeting
+
+Changed meeting time to Tuesday 3:00pm
+Phase can be replaced with pieces left to place per player, and pieces left on board
+Possible player actions: Place, Move adjacent, Move flying, Remove enemy
+Refactoring: Node.mill() has unnecessary node.right!=null checks pruned, Game.java
+Matthew & Matt 30 minutes pair programming
+
+For 09/30/14
+Zakk	- Complete GUI
+Matthew	- 
+Matt	- 
