@@ -4,6 +4,10 @@ public class Node {
   protected Node left, right, up, down;
   private Player player = null;
   
+  //x and y coordinates of node on image
+  private int x;
+  private int y;
+  
   //Node stuff right
   public Node() {
     
@@ -30,6 +34,19 @@ public class Node {
   }
   public void setPlayer(Player player) {
     this.player = player;
+  }
+  
+  public void setCoords(int i, int j) {
+	  this.x = i;
+	  this.y = j;
+  }
+  
+  public int getXCoord() {
+	  return x;
+  }
+  
+  public int getYCoord() {
+	  return y;
   }
   
   
