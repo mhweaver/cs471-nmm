@@ -27,7 +27,7 @@ public class Board {
   private void initNodes() {
     nodes = new Node[24];
     for (int i = 0; i <  24; i++) {
-      nodes[i] = new Node();
+      nodes[i] = new Node(i);
     }
     
     // Set up the board layout

@@ -3,13 +3,15 @@ package main;
 public class Node {
   protected Node left, right, up, down;
   private Player player = null;
+  private int index;
   
   //x and y coordinates of node on image
   private int x;
   private int y;
   
   //Node stuff right
-  public Node() {
+  public Node(int index) {
+    this.index = index;
     
   }
   public Node setLeft(Node left) {
