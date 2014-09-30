@@ -49,6 +49,7 @@ public class GUI implements ActionListener, MouseListener {
 		nodeRadius = whiteIcon.getIconHeight()/2;
 		nodeDiameter = whiteIcon.getIconHeight();
 		boardLength = boardIcon.getIconHeight();
+		nodeLabels = new JLabel[24];
 		game = new Game();
 		
 		
@@ -64,12 +65,15 @@ public class GUI implements ActionListener, MouseListener {
 	
 	public void initCenterPanel() {
 		
-		boardLabel = new JLabel("", boardIcon, JLabel.CENTER);
-		//nodeLabel0 = new JLabel("", whiteIcon, JLabel.CENTER);
-		//nodeLabel1 = new JLabel("", blackIcon, JLabel.CENTER);
-		
 		centerPanel = new JPanel();
 		centerPanel.setLayout(null);
+		boardLabel = new JLabel("", boardIcon, JLabel.CENTER);
+		for(int i=0;i<24;i++){
+			nodeLabels[i] = new JLabel();
+			centerPanel.add(nodeLabels[i]);
+		}
+		//nodeLabel0 = new JLabel("", whiteIcon, JLabel.CENTER);
+		//nodeLabel1 = new JLabel("", blackIcon, JLabel.CENTER);
 		//centerPanel.add(nodeLabel0);
 		//centerPanel.add(nodeLabel1);
 		centerPanel.add(boardLabel);
@@ -112,12 +116,20 @@ public class GUI implements ActionListener, MouseListener {
 	}
 	
 	public void addPiece(int x, int y) {
-		game.placePiece(game.currentPlayer, );
-		for(int i=0;i<24;i++) {
-			if(game.board.getNode(i).isInRegion(x, y)) {
-				get
-			}
+		Node n = game.board.getNode(x,y);
+		if(n == null)
+			return;
+		
+		try {
+			game.placePiece(game.currentPlayer, n.getIndex());
+			reDrawBoard();
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
 		}
+	}
+	
+	public void reDrawBoard() {
+		
 	}
 	
 	public void actionPerformed(ActionEvent ae) {

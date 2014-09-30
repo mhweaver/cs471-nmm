@@ -49,6 +49,10 @@ public class Node {
 	  return y;
   }
   
+  public int getIndex() {
+	  return index;
+  }
+  
   
   /** Check if this Node is part of a mill
    * @return true, if this Node is part of a mill; false, otherwise
