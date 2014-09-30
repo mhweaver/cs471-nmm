@@ -3,10 +3,12 @@ package main;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-public class GUI implements ActionListener{
+public class GUI implements ActionListener, MouseListener {
 
 	// GUI Variables
 	private String boardName;
@@ -29,11 +31,12 @@ public class GUI implements ActionListener{
 	private JPanel westPanel;
 	private JLabel boardLabel;
 	
-	private JLabel nodeLabel0;
-	private JLabel nodeLabel1;
+	private JLabel[] nodeLabels;
+	private Game game;
 	
 	public GUI() {
-		//Initialize Strings
+		
+		//Initialize Strings and images
 		boardName = "Nine Men's Morris";
 		imagePath = "resources/board.png";
 		whitePath = "resources/white.png";
@@ -46,9 +49,40 @@ public class GUI implements ActionListener{
 		nodeRadius = whiteIcon.getIconHeight()/2;
 		nodeDiameter = whiteIcon.getIconHeight();
 		boardLength = boardIcon.getIconHeight();
+		game = new Game();
 		
 		
 		//Create West Panel
+		initWestPanel();
+		
+		//Create Center Panel
+		initCenterPanel();
+		
+		//Create Main Frame
+		initMainFrame();
+	}
+	
+	public void initCenterPanel() {
+		
+		boardLabel = new JLabel("", boardIcon, JLabel.CENTER);
+		//nodeLabel0 = new JLabel("", whiteIcon, JLabel.CENTER);
+		//nodeLabel1 = new JLabel("", blackIcon, JLabel.CENTER);
+		
+		centerPanel = new JPanel();
+		centerPanel.setLayout(null);
+		//centerPanel.add(nodeLabel0);
+		//centerPanel.add(nodeLabel1);
+		centerPanel.add(boardLabel);
+		boardLabel.setBounds(0,0,boardLength,boardLength);
+		//nodeLabel0.setBounds(30-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
+		//nodeLabel1.setBounds(320-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
+		boardLabel.setOpaque(true);
+		centerPanel.addMouseListener(this);
+		centerPanel.repaint();
+
+	}
+	
+	public void initWestPanel() {
 		newGameButton = new JButton();
 		newGameButton.setText(newGameText);
 		newGameButton.addActionListener(this);
@@ -59,24 +93,9 @@ public class GUI implements ActionListener{
 		westPanel.setLayout(new GridLayout(15,1));
 		westPanel.add(newGameButton);
 		westPanel.add(exitGameButton);
-		
-		//Create Center Panel
-		boardLabel = new JLabel("", boardIcon, JLabel.CENTER);
-		nodeLabel0 = new JLabel("", whiteIcon, JLabel.CENTER);
-		nodeLabel1 = new JLabel("", blackIcon, JLabel.CENTER);
-		
-		centerPanel = new JPanel();
-		centerPanel.setLayout(null);
-		centerPanel.add(nodeLabel0);
-		centerPanel.add(nodeLabel1);
-		centerPanel.add(boardLabel);
-		boardLabel.setBounds(0,0,boardLength,boardLength);
-		nodeLabel0.setBounds(30-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabel1.setBounds(320-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
-		boardLabel.setOpaque(true);
-		centerPanel.repaint();
-		
-		//Create Main Frame
+	}
+	
+	public void initMainFrame() {
 		mainFrame = new JFrame(boardName);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.add(westPanel, BorderLayout.WEST);
@@ -88,8 +107,30 @@ public class GUI implements ActionListener{
 		mainFrame.setVisible(true);
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
-
+	public void newGame() {
+		
+	}
+	
+	public void actionPerformed(ActionEvent ae) {
+		if(ae.getSource().equals(exitGameButton))
+			System.exit(0);
+		if(ae.getSource().equals(newGameButton))
+			newGame();
+	}
+	
+	public void mousePressed(MouseEvent me) {
+		System.out.println(me.getX() + ", " + me.getY());
+	}
+	
+	
+	
+	public void mouseClicked(MouseEvent me) {	
+	}
+	public void mouseEntered(MouseEvent arg0) {		
+	}
+	public void mouseExited(MouseEvent arg0) {	
+	}
+	public void mouseReleased(MouseEvent arg0) {	
 	}
 
 }
