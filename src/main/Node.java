@@ -13,7 +13,6 @@ public class Node {
     
   }
   public Node setLeft(Node left) {
-    left.setRight(this);
     return this.left = left;
   }
   public Node setRight(Node right) {
@@ -21,7 +20,6 @@ public class Node {
     return this.right = right;
   }
   public Node setUp(Node up) {
-    up.setDown(this);
     return this.up = up;
   }
   public Node setDown(Node down) {
