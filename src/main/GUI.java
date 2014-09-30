@@ -111,6 +111,15 @@ public class GUI implements ActionListener, MouseListener {
 		
 	}
 	
+	public void addPiece(int x, int y) {
+		game.placePiece(game.currentPlayer, );
+		for(int i=0;i<24;i++) {
+			if(game.board.getNode(i).isInRegion(x, y)) {
+				get
+			}
+		}
+	}
+	
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource().equals(exitGameButton))
 			System.exit(0);
@@ -119,7 +128,11 @@ public class GUI implements ActionListener, MouseListener {
 	}
 	
 	public void mousePressed(MouseEvent me) {
-		System.out.println(me.getX() + ", " + me.getY());
+		for (int i =0; i<24; i++) {
+			if(game.board.getNode(i).isInRegion(me.getX(), me.getY())) {
+				System.out.println(i);
+			}
+		}
 	}
 	
 	

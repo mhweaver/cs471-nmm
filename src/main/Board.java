@@ -94,4 +94,12 @@ public class Board {
   public Node getNode(int i) {
     return nodes[i];
   }
+  
+  public Node getNode(int x, int y) {
+	  for(int i=0; i<24; i++) {
+		  if(nodes[i].isInRegion(x, y))
+			  return nodes[i];
+	  }
+	  return null;
+  }
 }

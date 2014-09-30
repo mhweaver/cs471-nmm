@@ -69,4 +69,8 @@ public class Node {
             farUp.down.down.player == this.player);
     
   }
+  
+  public boolean isInRegion(int inX, int inY) {
+	  return Math.sqrt(Math.pow(inX-x,2)+Math.pow(inY-y,2)) <=30;
+  }
 }
