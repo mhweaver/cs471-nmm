@@ -64,11 +64,11 @@ public class Node {
     // If the farLeft, farLeft.right, and farLeft.right.right all belong to this node's player
     // or farUp, farUp.down, and farUp.down.down all belong to this node's player, then return true
     return (farLeft.player == this.player &&
-            farLeft.right != null && farLeft.right.player == this.player &&
-            farLeft.right.right != null && farLeft.right.right.player == this.player) ||
+            farLeft.right.player == this.player &&
+            farLeft.right.right.player == this.player) ||
            (farUp.player == this.player &&
-            farUp.down != null && farUp.down.player == this.player &&
-            farUp.down.down != null && farUp.down.down.player == this.player);
+            farUp.down.player == this.player &&
+            farUp.down.down.player == this.player);
     
   }
 }
