@@ -22,6 +22,9 @@ public class Player {
     unplacedPieces--;
     piecesOnBoard++;
   }
+  public void removePiece() {
+    piecesOnBoard--;
+  }
   public int unplacedPieces() {
     return unplacedPieces;
   }
