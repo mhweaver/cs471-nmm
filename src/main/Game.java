@@ -28,15 +28,12 @@ public class Game {
     players[1].setColor(Player.BLACK);
   }
   
-  public void placePiece(Player player, int location) throws IllegalMoveException {
+  public void placePiece(int location) throws IllegalMoveException {
     if (removeTurn) {
       throw new IllegalMoveException("A piece needs to be removed before a new piece can be placed");
     }
     if (phase != 1) {
       throw new IllegalMoveException("Pieces can only be placed in phase 1");
-    }
-    if (currentPlayer != player) {
-      throw new IllegalMoveException("Pieces can only be placed during the current player's turn");
     }
     
     Node n = board.getNode(location);
@@ -45,8 +42,8 @@ public class Game {
     }
     // any other cases to not allow?
     
-    n.setPlayer(player);
-    // TODO: make any appropriate changes to the player (number of pieces left to place, etc)
+    n.setPlayer(currentPlayer);
+    currentPlayer.placePiece();
     
     if (n.mill()) {
       removeTurn = true;
@@ -55,14 +52,10 @@ public class Game {
     }
   }
   
-  public void removePiece(Player player, int location) throws IllegalMoveException {
+  public void removePiece(int location) throws IllegalMoveException {
     if (!removeTurn) {
       throw new IllegalMoveException("It is not an appropriate time to remove a piece");
     }
-    if (currentPlayer != player) {
-      throw new IllegalMoveException("Wrong player");
-    }
-    
     Node n = board.getNode(location);
     if (n.getPlayer() == null) {
       throw new IllegalMoveException("No piece to remove");

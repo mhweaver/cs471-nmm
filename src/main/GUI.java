@@ -121,7 +121,7 @@ public class GUI implements ActionListener, MouseListener {
 			return;
 		
 		try {
-			game.placePiece(game.currentPlayer, n.getIndex());
+			game.placePiece(n.getIndex());
 			reDrawBoard();
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();
