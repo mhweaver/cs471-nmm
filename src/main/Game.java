@@ -9,12 +9,12 @@ public class Game {
   protected Player player1, player2;
   protected Player currentPlayer;
   
-  private enum Turn { Place, Remove, Move }
-  private Turn expectedMove;
+  private enum Move { Place, Remove, Move, None }
+  private Move expectedMove;
   
   public Game() {
     board = new Board();
-    expectedMove = Turn.Place;
+    expectedMove = Move.Place;
     initPlayers();
   }
   
@@ -26,7 +26,7 @@ public class Game {
   }
   
   public void placePiece(int location) throws IllegalMoveException {
-    if (expectedMove != Turn.Place) {
+    if (expectedMove != Move.Place) {
       throw new IllegalMoveException("Invalid move attempted (place)");
     }
     
@@ -40,14 +40,14 @@ public class Game {
     currentPlayer.placePiece();
     
     if (n.mill()) {
-      expectedMove = Turn.Remove;
+      expectedMove = Move.Remove;
     } else {
       nextTurn();
     }
   }
   
   public void removePiece(int location) throws IllegalMoveException {
-    if (expectedMove != Turn.Remove) {
+    if (expectedMove != Move.Remove) {
       throw new IllegalMoveException("Invalid move attempted (remove)");
     }
     Node n = board.getNode(location);
@@ -65,7 +65,7 @@ public class Game {
   }
   
   public void movePiece(int from, int to) throws IllegalMoveException {
-    if (expectedMove != Turn.Move) {
+    if (expectedMove != Move.Move) {
       throw new IllegalMoveException("Invalid move attempted (move)");
     }
     
@@ -95,7 +95,7 @@ public class Game {
     toNode.setPlayer(currentPlayer);
     
     if (toNode.mill()) {
-      expectedMove = Turn.Remove;
+      expectedMove = Move.Remove;
     } else {
       nextTurn();
     }
@@ -105,13 +105,17 @@ public class Game {
   private void nextTurn() {
     currentPlayer = (currentPlayer == player1 ? player2 : player1);
     turnsPlayed++;
-    expectedMove = currentPlayer.unplacedPieces() > 0 ? Turn.Place : Turn.Move;
+    Player winner = getWinner();
+    if (winner == null) {
+      expectedMove = currentPlayer.unplacedPieces() > 0 ? Move.Place : Move.Move;
+    } else {
+      expectedMove = Move.None;
+    }
   }
   
-  public boolean gameOver() {
-    
-    
-    
-    return false;
+  public Player getWinner() {
+    if (!player1.hasAvailableMoves(board)) return player2;
+    if (!player2.hasAvailableMoves(board)) return player1;
+    return null;
   }
 }
