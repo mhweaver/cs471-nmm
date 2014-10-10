@@ -6,7 +6,7 @@ public class Game {
   private int turnsPlayed = 0;
   
   protected Board board;
-  protected Player[] players;
+  protected Player player1, player2;
   protected Player currentPlayer;
   
   private enum Turn { Place, Remove, Move }
@@ -19,11 +19,10 @@ public class Game {
   }
   
   private void initPlayers() {
-    players = new Player[2];
-    players[0] = currentPlayer = new Player("Player 1");
-    players[0].setColor(Player.WHITE);
-    players[1] = new Player("Player 2");
-    players[1].setColor(Player.BLACK);
+    player1 = currentPlayer = new Player("Player 1");
+    player1.setColor(Player.WHITE);
+    player2 = new Player("Player 2");
+    player2.setColor(Player.BLACK);
   }
   
   public void placePiece(int location) throws IllegalMoveException {
@@ -104,8 +103,15 @@ public class Game {
   }
 
   private void nextTurn() {
-    currentPlayer = (currentPlayer == players[0] ? players[1] : players[0]);
+    currentPlayer = (currentPlayer == player1 ? player2 : player1);
     turnsPlayed++;
     expectedMove = currentPlayer.unplacedPieces() > 0 ? Turn.Place : Turn.Move;
+  }
+  
+  public boolean gameOver() {
+    
+    
+    
+    return false;
   }
 }
