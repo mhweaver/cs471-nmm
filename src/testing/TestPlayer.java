@@ -37,7 +37,7 @@ public class TestPlayer {
   @Test
   public final void testSetColor() {
     p.setColor(Player.BLACK);
-    assertEquals(p.getColor(), 1);
+    assertEquals(p.getColor(), Player.Color.BLACK);
   }
 
   @Test
@@ -72,9 +72,17 @@ public class TestPlayer {
     // Empty board
     assertTrue(p.hasAvailableMoves(b));
     
+    // Place all 9 pieces - Still has pieces on board
     for (int i = 0; i<9; i++) {
-      // TODO: Complete this test...
+      p.placePiece();
+      b.getNode(i).setPlayer(p);
     }
+    assertTrue(p.hasAvailableMoves(b));
+    
+    for (int i = 0; i<9; i++) {
+      p.removePiece();
+    }
+    assertFalse(p.hasAvailableMoves(b));
   }
 
 }
