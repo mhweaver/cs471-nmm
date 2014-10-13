@@ -106,6 +106,13 @@ public class Board {
 	  return null;
   }
   
+  public void unSelectAll() {
+	  int i;
+	  for (i=0; i<24; i++) {
+		  nodes[i].unSelect();
+	  }
+  }
+  
   public class Test {
     public Node[] getNodes() {
       return nodes;
