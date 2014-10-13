@@ -25,7 +25,7 @@ public class Game {
     player2.setColor(Player.BLACK);
   }
   
-  public void placePiece(int location) throws IllegalMoveException {
+  public Player placePiece(int location) throws IllegalMoveException {
     if (expectedMove != Move.Place) {
       throw new IllegalMoveException("Invalid move attempted (place)");
     }
@@ -38,11 +38,14 @@ public class Game {
     
     n.setPlayer(currentPlayer);
     currentPlayer.placePiece();
+    Player currPlayer = currentPlayer;
     
     if (n.mill()) {
       expectedMove = Move.Remove;
+      return currPlayer;
     } else {
       nextTurn();
+      return currPlayer;
     }
   }
   
