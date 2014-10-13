@@ -284,6 +284,7 @@ public class GUI implements ActionListener, MouseListener {
 						try {
 							game.movePiece(selectedNode.getIndex(), game.board.getNode(i).getIndex());
 							selectedNode = null;
+							game.board.unSelectAll();
 						} catch (IllegalMoveException e) {
 							e.printStackTrace();
 						}
