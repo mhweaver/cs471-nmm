@@ -61,6 +61,17 @@ public class Game {
       throw new IllegalMoveException("Wrong player");
     }
     
+    if (n.mill()) {
+      for (int i = 0; i< 24; i++) {
+        Node tempNode = board.getNode(i);
+        if (n != tempNode && 
+            tempNode.getPlayer() != currentPlayer && 
+            !tempNode.mill()) {
+          throw new IllegalMoveException("You may not remove a piece from a mill unless there are no other options");
+        }
+      }
+    }
+    
     n.setPlayer(null);
     currentPlayer.removePiece();
     
