@@ -31,13 +31,16 @@ public class GUI implements ActionListener, MouseListener {
 	private int nodeRadius;
 	private int nodeDiameter;
 	private int boardLength;
+	private Node selectedNode;
 	
 	private JButton newGameButton;
 	private JButton exitGameButton;
 	private JFrame mainFrame;
 	private JPanel centerPanel;
 	private JPanel westPanel;
+	private JPanel southPanel;
 	private JLabel boardLabel;
+	private JTextField statusField;
 	
 	private JLabel[] nodeLabels;
 	private Game game;
@@ -75,6 +78,9 @@ public class GUI implements ActionListener, MouseListener {
 		//Create Center Panel
 		initCenterPanel();
 		
+		//Create South Panel
+		initSouthPanel();
+		
 		//Create Main Frame
 		initMainFrame();
 	}
@@ -110,12 +116,22 @@ public class GUI implements ActionListener, MouseListener {
 		westPanel.add(exitGameButton);
 	}
 	
+	public void initSouthPanel() {
+		southPanel = new JPanel(new BorderLayout());
+		statusField = new JTextField("");
+		setStatus(game.currentPlayer.name + ":" + game.expectedMove.toString());
+		statusField.setSize(15,boardLength);
+		southPanel.add(statusField, BorderLayout.SOUTH);
+		
+	}
+	
 	public void initMainFrame() {
 		mainFrame = new JFrame(boardName);
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.add(westPanel, BorderLayout.WEST);
 		mainFrame.add(centerPanel, BorderLayout.CENTER);
-		mainFrame.setPreferredSize(new Dimension(760, 670));
+		mainFrame.add(southPanel, BorderLayout.SOUTH);
+		mainFrame.setPreferredSize(new Dimension(760, 690));
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
@@ -138,12 +154,6 @@ public class GUI implements ActionListener, MouseListener {
 		
 		try {
 			p = game.placePiece(n.getIndex());
-			if(p.color == Player.BLACK) {
-				setNodeLabelBlack(n.getIndex());
-			}
-			if(p.color == Player.WHITE) {
-				setNodeLabelWhite(n.getIndex());
-			}
 			redrawBoard();
 			
 		} catch (IllegalMoveException e) {
@@ -157,7 +167,6 @@ public class GUI implements ActionListener, MouseListener {
 			return;
 		try {
 			game.removePiece(n.getIndex());
-			setNodeLabelBlank(n.getIndex());
 			redrawBoard();
 			
 		} catch (IllegalMoveException e) {
@@ -165,19 +174,28 @@ public class GUI implements ActionListener, MouseListener {
 		}
 	}
 	
+	public void movePiece(int x, int y) {
+		
+	}
+	
+	public void selectPiece(int x, int y) {
+		selectedNode = game.board.getNode(x,y);
+	}
+	
 	public void redrawBoard() {
 		for(int i=0;i<24;i++) {
+			if(game.board.getNode(i).getPlayer() == null) {
+				setNodeLabelBlank(i);
+				continue;
+			}
 			if(game.board.getNode(i).getPlayer().color == Player.WHITE) {
 				setNodeLabelWhite(i);
 			}
 			if(game.board.getNode(i).getPlayer().color == Player.BLACK) {
 				setNodeLabelBlack(i);
 			}
-			if(game.board.getNode(i).getPlayer() == null) {
-				setNodeLabelBlank(i);
-			}
-			
 		}
+		setStatus(game.currentPlayer.name + ":" + game.expectedMove.toString());
 	}
 	
 	public void setNodeLabelBlack(int index) {
@@ -236,6 +254,10 @@ public class GUI implements ActionListener, MouseListener {
 		nodeLabels[23].setBounds(610-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);*/
 	}
 	
+	public void setStatus(String s) {
+		statusField.setText(s); 
+	}
+	
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getSource().equals(exitGameButton))
 			System.exit(0);
@@ -250,14 +272,24 @@ public class GUI implements ActionListener, MouseListener {
 				if(game.expectedMove == Game.Move.Place) {
 					addPiece(me.getX(), me.getY());
 				}
-				if(game.expectedMove == Game.Move.Move) {
-					addPiece(me.getX(), me.getY());
+				else if(game.expectedMove == Game.Move.Move) {
+					//selectPiece.(me.getX(), me.getY());
+					if(selectedNode == null || game.currentPlayer == game.board.getNode(i).getPlayer())
+						selectPiece(me.getX(), me.getY());
+					else {
+						try {
+							game.movePiece(selectedNode.getIndex(), game.board.getNode(i).getIndex());
+							selectedNode = null;
+						} catch (IllegalMoveException e) {
+							e.printStackTrace();
+						}
+					}
 				}
-				if(game.expectedMove == Game.Move.Remove) {
-					addPiece(me.getX(), me.getY());
+				else if(game.expectedMove == Game.Move.Remove) {
+					removePiece(me.getX(), me.getY());
 				}
-				if(game.expectedMove == Game.Move.None) {
-					//addPiece(me.getX(), me.getY());
+				else if(game.expectedMove == Game.Move.None) {
+					
 				}
 			}
 		}

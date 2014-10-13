@@ -57,7 +57,7 @@ public class Game {
     if (n.getPlayer() == null) {
       throw new IllegalMoveException("No piece to remove");
     }
-    if (n.getPlayer() != currentPlayer) {
+    if (n.getPlayer() == currentPlayer) {
       throw new IllegalMoveException("Wrong player");
     }
     
