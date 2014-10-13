@@ -117,16 +117,23 @@ public class GUI implements ActionListener, MouseListener {
 			setNodeLabelBlank(i);
 		}
 		redrawBoard();
+		game = new Game();
 	}
 	
 	public void addPiece(int x, int y) {
 		Node n = game.board.getNode(x,y);
+		Player p;
 		if(n == null)
 			return;
 		
 		try {
-			game.placePiece(n.getIndex());
-			setNodeLabelWhite(n.getIndex());
+			p = game.placePiece(n.getIndex());
+			if(p.Color.eqials("BLACK")) {
+				setNodeLabelBlack(n.getIndex);
+			}
+			if(p.color.equals("WHITE")) {
+				setNodeLabelWhite(n.getIndex());
+			{
 			redrawBoard();
 			//game.placePiece(n.getIndex());
 			//redrawBoard();
