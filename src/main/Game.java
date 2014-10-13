@@ -9,7 +9,7 @@ public class Game {
   protected Player player1, player2;
   protected Player currentPlayer;
   
-  private enum Move { Place, Remove, Move, None }
+  protected enum Move { Place, Remove, Move, None }
   protected Move expectedMove;
   
   public Game() {

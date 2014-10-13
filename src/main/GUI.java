@@ -19,10 +19,15 @@ public class GUI implements ActionListener, MouseListener {
 	private String blackPath;
 	private String selectPath;
 	private String blankPath;
+	private String blackAvailablePath;
+	private String whiteAvailablePath;
 	private ImageIcon boardIcon;
 	private ImageIcon whiteIcon;
 	private ImageIcon blackIcon;
 	private ImageIcon blankIcon;
+	private ImageIcon selectIcon;
+	private ImageIcon blackAvailableIcon;
+	private ImageIcon whiteAvailableIcon;
 	private int nodeRadius;
 	private int nodeDiameter;
 	private int boardLength;
@@ -46,12 +51,17 @@ public class GUI implements ActionListener, MouseListener {
 		blackPath = "resources/black.png";
 		selectPath = "resources/select.png";
 		blankPath = "resources/blank.png";
+		blackAvailablePath = "resources/blacks.png";
+		whiteAvailablePath = "resources/whites.png";
 		newGameText = "New Game";
 		exitGameText = "Exit";
 		boardIcon = new ImageIcon(imagePath);
 		whiteIcon = new ImageIcon(whitePath);
 		blackIcon = new ImageIcon(blackPath);
 		blankIcon = new ImageIcon(blankPath);
+		selectIcon = new ImageIcon(selectPath);
+		blackAvailableIcon = new ImageIcon(blackAvailablePath);
+		whiteAvailableIcon = new ImageIcon(whiteAvailablePath);
 		nodeRadius = whiteIcon.getIconHeight()/2;
 		nodeDiameter = whiteIcon.getIconHeight();
 		boardLength = boardIcon.getIconHeight();
@@ -141,8 +151,33 @@ public class GUI implements ActionListener, MouseListener {
 		}
 	}
 	
+	public void removePiece(int x, int y) {
+		Node n = game.board.getNode(x,y);
+		if(n == null)
+			return;
+		try {
+			game.removePiece(n.getIndex());
+			setNodeLabelBlank(n.getIndex());
+			redrawBoard();
+			
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void redrawBoard() {
-		centerPanel.repaint();
+		for(int i=0;i<24;i++) {
+			if(game.board.getNode(i).getPlayer().color == Player.WHITE) {
+				setNodeLabelWhite(i);
+			}
+			if(game.board.getNode(i).getPlayer().color == Player.BLACK) {
+				setNodeLabelBlack(i);
+			}
+			if(game.board.getNode(i).getPlayer() == null) {
+				setNodeLabelBlank(i);
+			}
+			
+		}
 	}
 	
 	public void setNodeLabelBlack(int index) {
@@ -155,6 +190,18 @@ public class GUI implements ActionListener, MouseListener {
 	
 	public void setNodeLabelBlank(int index) {
 		nodeLabels[index].setIcon(blankIcon);
+	}
+	
+	public void setNodeLabelBlackAvail(int index) {
+		nodeLabels[index].setIcon(blackAvailableIcon);
+	}
+	
+	public void  setNodeLabelWhiteAvail(int index) {
+		nodeLabels[index].setIcon(whiteAvailableIcon);
+	}
+	
+	public void setNodeLabelBlankAvail(int index) {
+		nodeLabels[index].setIcon(selectIcon);
 	}
 	
 	public void setNodeLabelBounds() {
@@ -194,8 +241,19 @@ public class GUI implements ActionListener, MouseListener {
 	public void mousePressed(MouseEvent me) {
 		for (int i =0; i<24; i++) {
 			if(game.board.getNode(i).isInRegion(me.getX(), me.getY())) {
-				System.out.println(i);
-				addPiece(me.getX(), me.getY());
+				//System.out.println(i);
+				if(game.expectedMove == Game.Move.Place) {
+					addPiece(me.getX(), me.getY());
+				}
+				if(game.expectedMove == Game.Move.Move) {
+					addPiece(me.getX(), me.getY());
+				}
+				if(game.expectedMove == Game.Move.Remove) {
+					addPiece(me.getX(), me.getY());
+				}
+				if(game.expectedMove == Game.Move.None) {
+					//addPiece(me.getX(), me.getY());
+				}
 			}
 		}
 		
