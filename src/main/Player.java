@@ -39,6 +39,8 @@ public class Player {
     if (unplacedPieces > 0) return true;
     // Player has no pieces left on board
     if (piecesOnBoard == 0) return false;
+    // Player can fly -- From above, we know they have no unplaced pieces left, so no need to check that
+    if (piecesOnBoard <= 3) return true;
     
     // Loop through all nodes and check the ones this player owns, to see if there are any adjacent empty spots
     for (int i = 0; i < 24; i++) {
