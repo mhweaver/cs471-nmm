@@ -73,9 +73,10 @@ public class Game {
     }
     
     n.setPlayer(null);
-    currentPlayer.removePiece();
     
     nextTurn();
+    // nextTurn switches currentPlayer
+    currentPlayer.removePiece();
   }
   
   public void movePiece(int from, int to) throws IllegalMoveException {
