@@ -291,8 +291,10 @@ public class GUI implements ActionListener, MouseListener {
 				else if(game.expectedMove == Game.Move.Remove) {
 					removePiece(me.getX(), me.getY());
 				}
-				else if(game.expectedMove == Game.Move.None) {
-					
+				if(game.expectedMove == Game.Move.None) {
+					String winner = game.getWinner().name;
+					JOptionPane.showMessageDialog(mainFrame, winner+ " wins!");
+					setStatus("Click new Game to play again");
 				}
 			}
 		}
