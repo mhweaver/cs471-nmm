@@ -10,7 +10,7 @@ public class Game {
   protected Player currentPlayer;
   
   private enum Move { Place, Remove, Move, None }
-  private Move expectedMove;
+  protected Move expectedMove;
   
   public Game() {
     board = new Board();
