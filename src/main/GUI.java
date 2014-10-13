@@ -180,19 +180,23 @@ public class GUI implements ActionListener, MouseListener {
 	
 	public void selectPiece(int x, int y) {
 		selectedNode = game.board.getNode(x,y);
+		game.board.unSelectAll();
+		selectedNode.select();
 	}
 	
 	public void redrawBoard() {
 		for(int i=0;i<24;i++) {
 			if(game.board.getNode(i).getPlayer() == null) {
-				setNodeLabelBlank(i);
-				continue;
+				if (game.board.getNode(i).isSelected()) setNodeLabelBlankAvail(i);
+				else setNodeLabelBlank(i);
 			}
-			if(game.board.getNode(i).getPlayer().color == Player.WHITE) {
-				setNodeLabelWhite(i);
+			else if(game.board.getNode(i).getPlayer().color == Player.WHITE) {
+				if (game.board.getNode(i).isSelected()) setNodeLabelWhiteAvail(i);
+				else setNodeLabelWhite(i);
 			}
-			if(game.board.getNode(i).getPlayer().color == Player.BLACK) {
-				setNodeLabelBlack(i);
+			else if(game.board.getNode(i).getPlayer().color == Player.BLACK) {
+				if (game.board.getNode(i).isSelected()) setNodeLabelBlackAvail(i);
+				else setNodeLabelBlack(i);
 			}
 		}
 		setStatus(game.currentPlayer.name + ":" + game.expectedMove.toString());
