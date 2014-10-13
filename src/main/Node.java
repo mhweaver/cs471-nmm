@@ -9,6 +9,8 @@ public class Node {
   private int x;
   private int y;
   
+  public Test test = new Test();
+  
   //Node stuff right
   public Node(int index) {
     this.index = index;
@@ -82,5 +84,30 @@ public class Node {
   
   public boolean isNeighbor(Node n) {
     return (n == this.left || n == this.right || n == this.up || n == this.down);
+  }
+  
+  public class Test {
+    public Node getLeft() {
+      return left;
+    }
+    public Node getRight() {
+      return right;
+    }
+    public Node getUp() {
+      return up;
+    }
+    public Node getDown() {
+      return down;
+    }
+    public Player getPlayer() {
+      return player;
+    }
+    public int getIndex() {
+      return index;
+    }
+    public int[] getCoords() {
+      int[] i = {x, y};
+      return i;
+    }
   }
 }
