@@ -21,8 +21,10 @@ package main;
 
 public class Board {
   private Node[] nodes;
+  public Test test;
   public Board() {
     initNodes();
+    this.test = new Test();
   }
   private void initNodes() {
     nodes = new Node[24];
@@ -103,4 +105,18 @@ public class Board {
 	  }
 	  return null;
   }
+  
+  public void unSelectAll() {
+	  int i;
+	  for (i=0; i<24; i++) {
+		  nodes[i].unSelect();
+	  }
+  }
+  
+  public class Test {
+    public Node[] getNodes() {
+      return nodes;
+    }
+  }
+  
 }

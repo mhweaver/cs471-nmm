@@ -205,7 +205,12 @@ public class GUI implements ActionListener, MouseListener {
 	}
 	
 	public void setNodeLabelBounds() {
-		nodeLabels[0].setBounds(30-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
+		int i;
+		for (i = 0; i < 24; i++) {
+			nodeLabels[i].setBounds(game.board.getNode(i).getXCoord()-nodeRadius,
+					game.board.getNode(i).getYCoord()-nodeRadius,nodeDiameter,nodeDiameter);
+		}
+		/*nodeLabels[0].setBounds(30-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
 		nodeLabels[1].setBounds(320-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
 		nodeLabels[2].setBounds(610-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
 		nodeLabels[3].setBounds(126-nodeRadius,126-nodeRadius,nodeDiameter,nodeDiameter);
@@ -228,7 +233,7 @@ public class GUI implements ActionListener, MouseListener {
 		nodeLabels[20].setBounds(514-nodeRadius,514-nodeRadius,nodeDiameter,nodeDiameter);
 		nodeLabels[21].setBounds(30-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);
 		nodeLabels[22].setBounds(320-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[23].setBounds(610-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);
+		nodeLabels[23].setBounds(610-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);*/
 	}
 	
 	public void actionPerformed(ActionEvent ae) {
