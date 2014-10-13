@@ -61,7 +61,7 @@ public class Node {
    * @return true, if this Node is part of a mill; false, otherwise
    */
   public boolean mill() {
-    // TODO: mill() REALLY needs tested. (I think it should work, but...)
+    if (this.player == null) return false;
     // Move both the far left and far top, in a straight line, from this node
     Node farLeft, farUp;
     farLeft = farUp = this;
