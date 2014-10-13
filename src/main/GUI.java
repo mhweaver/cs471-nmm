@@ -128,15 +128,14 @@ public class GUI implements ActionListener, MouseListener {
 		
 		try {
 			p = game.placePiece(n.getIndex());
-			if(p.Color.eqials("BLACK")) {
-				setNodeLabelBlack(n.getIndex);
+			if(p.color == Player.BLACK) {
+				setNodeLabelBlack(n.getIndex());
 			}
-			if(p.color.equals("WHITE")) {
+			if(p.color == Player.WHITE) {
 				setNodeLabelWhite(n.getIndex());
-			{
+			}
 			redrawBoard();
-			//game.placePiece(n.getIndex());
-			//redrawBoard();
+			
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();
 		}
