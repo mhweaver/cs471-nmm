@@ -154,7 +154,6 @@ public class GUI implements ActionListener, MouseListener {
 		
 		try {
 			p = game.placePiece(n.getIndex());
-			redrawBoard();
 			
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();
@@ -167,7 +166,6 @@ public class GUI implements ActionListener, MouseListener {
 			return;
 		try {
 			game.removePiece(n.getIndex());
-			redrawBoard();
 			
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();
@@ -297,6 +295,7 @@ public class GUI implements ActionListener, MouseListener {
 				}
 			}
 		}
+		redrawBoard();
 		
 	}
 	
