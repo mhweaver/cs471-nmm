@@ -4,6 +4,7 @@ public class Node {
   protected Node left, right, up, down;
   private Player player = null;
   private int index;
+  private boolean selected;
   
   //x and y coordinates of node on image
   private int x;
@@ -14,7 +15,7 @@ public class Node {
   //Node stuff right
   public Node(int index) {
     this.index = index;
-    
+    selected = false;
   }
   public Node setLeft(Node left) {
     return this.left = left;
@@ -86,6 +87,18 @@ public class Node {
     return (n == this.left || n == this.right || n == this.up || n == this.down);
   }
   
+  public void select() {
+	  selected = true;
+  }
+  
+  public void unSelect() {
+	  selected = false;
+  }
+  
+  public boolean isSelected() {
+	  return selected;
+  }
+  
   public class Test {
     public Node getLeft() {
       return left;
@@ -110,4 +123,5 @@ public class Node {
       return i;
     }
   }
+  
 }
