@@ -56,7 +56,8 @@ public class Board {
     nodes[13].setDown(nodes[20]); // 13 done
     nodes[14].setDown(nodes[23]); // 14 done
     nodes[15].setRight(nodes[16]);// 15 done
-    nodes[16].setRight(nodes[17]);// 16 & 17 done
+    nodes[16].setRight(nodes[17]);// 17 done
+    nodes[16].setDown(nodes[19]); // 16 done
     nodes[18].setRight(nodes[19]);// 18 done
     nodes[19].setRight(nodes[20]);// 20 done
     nodes[19].setDown(nodes[22]); // 19 done
