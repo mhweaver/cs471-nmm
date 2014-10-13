@@ -139,11 +139,8 @@ public class GUI implements ActionListener, MouseListener {
 	}
 	
 	public void newGame() {
-		for(int i=0; i<24; i++) {
-			setNodeLabelBlank(i);
-		}
-		redrawBoard();
 		game = new Game();
+		redrawBoard();
 	}
 	
 	public void addPiece(int x, int y) {
