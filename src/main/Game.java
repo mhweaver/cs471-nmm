@@ -2,41 +2,32 @@ package main;
 
 public class Game {
 
-  // Phase 1: Place pieces
-  // Phase 2: Move pieces
-  // Phase 3: Flying
-  private int phase;
   
   private int turnsPlayed = 0;
-  private boolean removeTurn = false; // Does someone need to remove a piece this turn?
   
   protected Board board;
-  protected Player[] players;
+  protected Player player1, player2;
   protected Player currentPlayer;
   
+  private enum Move { Place, Remove, Move, None }
+  private Move expectedMove;
+  
   public Game() {
-    phase = 1;
     board = new Board();
+    expectedMove = Move.Place;
     initPlayers();
   }
   
   private void initPlayers() {
-    players = new Player[2];
-    players[0] = currentPlayer = new Player("Player 1");
-    players[0].setColor(Player.WHITE);
-    players[1] = new Player("Player 2");
-    players[1].setColor(Player.BLACK);
+    player1 = currentPlayer = new Player("Player 1");
+    player1.setColor(Player.WHITE);
+    player2 = new Player("Player 2");
+    player2.setColor(Player.BLACK);
   }
   
-  public void placePiece(Player player, int location) throws IllegalMoveException {
-    if (removeTurn) {
-      throw new IllegalMoveException("A piece needs to be removed before a new piece can be placed");
-    }
-    if (phase != 1) {
-      throw new IllegalMoveException("Pieces can only be placed in phase 1");
-    }
-    if (currentPlayer != player) {
-      throw new IllegalMoveException("Pieces can only be placed during the current player's turn");
+  public void placePiece(int location) throws IllegalMoveException {
+    if (expectedMove != Move.Place) {
+      throw new IllegalMoveException("Invalid move attempted (place)");
     }
     
     Node n = board.getNode(location);
@@ -45,24 +36,20 @@ public class Game {
     }
     // any other cases to not allow?
     
-    n.setPlayer(player);
-    // TODO: make any appropriate changes to the player (number of pieces left to place, etc)
+    n.setPlayer(currentPlayer);
+    currentPlayer.placePiece();
     
     if (n.mill()) {
-      removeTurn = true;
+      expectedMove = Move.Remove;
     } else {
       nextTurn();
     }
   }
   
-  public void removePiece(Player player, int location) throws IllegalMoveException {
-    if (!removeTurn) {
-      throw new IllegalMoveException("It is not an appropriate time to remove a piece");
+  public void removePiece(int location) throws IllegalMoveException {
+    if (expectedMove != Move.Remove) {
+      throw new IllegalMoveException("Invalid move attempted (remove)");
     }
-    if (currentPlayer != player) {
-      throw new IllegalMoveException("Wrong player");
-    }
-    
     Node n = board.getNode(location);
     if (n.getPlayer() == null) {
       throw new IllegalMoveException("No piece to remove");
@@ -72,13 +59,63 @@ public class Game {
     }
     
     n.setPlayer(null);
-    //TODO: make any appropriate changes to the player (number of pieces left to place, etc)
+    currentPlayer.removePiece();
     
-    removeTurn = false;
+    nextTurn();
+  }
+  
+  public void movePiece(int from, int to) throws IllegalMoveException {
+    if (expectedMove != Move.Move) {
+      throw new IllegalMoveException("Invalid move attempted (move)");
+    }
+    
+    Node fromNode, toNode;
+    fromNode = board.getNode(from);
+    toNode = board.getNode(to);
+    
+    // Make sure the player owns the piece they are trying to move
+    if (fromNode.getPlayer() != currentPlayer) {
+      throw new IllegalMoveException("Player attempted to move from a spot they don't currently own");
+    }
+    
+    // Check to see if the destination node is a legal destination
+    // Is the destination node occupied already?
+    if (toNode.getPlayer() != null) {
+      throw new IllegalMoveException("Destination spot is already occupied");
+    }
+    // Can the player fly?
+    if (currentPlayer.unplacedPieces() == 0 && currentPlayer.piecesOnBoard() > 3) {
+      // Nope. Are they trying to?
+      if (!fromNode.isNeighbor(toNode)) {
+        throw new IllegalMoveException("Player is not yet allowed to fly. Pieces may only be moved to adjacent spots");
+      }
+    }
+    
+    fromNode.setPlayer(null);
+    toNode.setPlayer(currentPlayer);
+    
+    if (toNode.mill()) {
+      expectedMove = Move.Remove;
+    } else {
+      nextTurn();
+    }
+    
   }
 
   private void nextTurn() {
-    currentPlayer = (currentPlayer == players[0] ? players[1] : players[0]);
+    currentPlayer = (currentPlayer == player1 ? player2 : player1);
     turnsPlayed++;
+    Player winner = getWinner();
+    if (winner == null) {
+      expectedMove = currentPlayer.unplacedPieces() > 0 ? Move.Place : Move.Move;
+    } else {
+      expectedMove = Move.None;
+    }
+  }
+  
+  public Player getWinner() {
+    if (!player1.hasAvailableMoves(board)) return player2;
+    if (!player2.hasAvailableMoves(board)) return player1;
+    return null;
   }
 }

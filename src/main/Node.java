@@ -79,4 +79,8 @@ public class Node {
   public boolean isInRegion(int inX, int inY) {
 	  return Math.sqrt(Math.pow(inX-x,2)+Math.pow(inY-y,2)) <=30;
   }
+  
+  public boolean isNeighbor(Node n) {
+    return (n == this.left || n == this.right || n == this.up || n == this.down);
+  }
 }
