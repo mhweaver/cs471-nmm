@@ -18,9 +18,11 @@ public class GUI implements ActionListener, MouseListener {
 	private String whitePath;
 	private String blackPath;
 	private String selectPath;
+	private String blankPath;
 	private ImageIcon boardIcon;
 	private ImageIcon whiteIcon;
 	private ImageIcon blackIcon;
+	private ImageIcon blankIcon;
 	private int nodeRadius;
 	private int nodeDiameter;
 	private int boardLength;
@@ -43,11 +45,13 @@ public class GUI implements ActionListener, MouseListener {
 		whitePath = "resources/white.png";
 		blackPath = "resources/black.png";
 		selectPath = "resources/select.png";
+		blankPath = "resources/blank.png";
 		newGameText = "New Game";
 		exitGameText = "Exit";
 		boardIcon = new ImageIcon(imagePath);
 		whiteIcon = new ImageIcon(whitePath);
 		blackIcon = new ImageIcon(blackPath);
+		blankIcon = new ImageIcon(blankPath);
 		nodeRadius = whiteIcon.getIconHeight()/2;
 		nodeDiameter = whiteIcon.getIconHeight();
 		boardLength = boardIcon.getIconHeight();
@@ -71,7 +75,7 @@ public class GUI implements ActionListener, MouseListener {
 		centerPanel.setLayout(null);
 		boardLabel = new JLabel("", boardIcon, JLabel.CENTER);
 		for(int i=0;i<24;i++){
-			nodeLabels[i] = new JLabel();
+			nodeLabels[i] = new JLabel("", blankIcon, JLabel.CENTER);
 			centerPanel.add(nodeLabels[i]);
 		}
 		centerPanel.add(boardLabel);
@@ -121,9 +125,11 @@ public class GUI implements ActionListener, MouseListener {
 			return;
 		
 		try {
-			game.placePiece(game.currentPlayer, n.getIndex());
-			setNodeLabelBlack(n.getIndex());
+			game.placePiece(n.getIndex());
+			setNodeLabelWhite(n.getIndex());
 			redrawBoard();
+			//game.placePiece(n.getIndex());
+			//redrawBoard();
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();
 		}
@@ -135,16 +141,14 @@ public class GUI implements ActionListener, MouseListener {
 	
 	public void setNodeLabelBlack(int index) {
 		nodeLabels[index].setIcon(blackIcon);
-		//nodeLabels[index] = new JLabel("",blackIcon,JLabel.CENTER);
-		
 	}
 	
 	public void setNodeLabelWhite(int index) {
-		nodeLabels[index] = new JLabel("",whiteIcon,JLabel.CENTER);
+		nodeLabels[index].setIcon(whiteIcon);
 	}
 	
 	public void setNodeLabelBlank(int index) {
-		nodeLabels[index].setIcon(whiteIcon);
+		nodeLabels[index].setIcon(blankIcon);
 	}
 	
 	public void setNodeLabelBounds() {
