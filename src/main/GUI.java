@@ -35,14 +35,21 @@ public class GUI implements ActionListener, MouseListener {
 	
 	private JButton newGameButton;
 	private JButton exitGameButton;
+	private JRadioButton twoPlayer;
+	private JRadioButton computer;
+	private ButtonGroup modeChoice;
 	private JFrame mainFrame;
 	private JPanel centerPanel;
 	private JPanel westPanel;
 	private JPanel southPanel;
 	private JLabel boardLabel;
 	private JTextField statusField;
-	
 	private JLabel[] nodeLabels;
+	private JLabel remainBlackLabel;
+	private JLabel remainWhiteLabel;
+	
+	private boolean AIMode;
+	
 	private Game game;
 	
 	public GUI() {
@@ -69,6 +76,7 @@ public class GUI implements ActionListener, MouseListener {
 		nodeDiameter = whiteIcon.getIconHeight();
 		boardLength = boardIcon.getIconHeight();
 		nodeLabels = new JLabel[24];
+		AIMode = false;
 		game = new Game();
 		
 		
@@ -110,10 +118,24 @@ public class GUI implements ActionListener, MouseListener {
 		exitGameButton = new JButton();
 		exitGameButton.setText(exitGameText);
 		exitGameButton.addActionListener(this);
+		twoPlayer = new JRadioButton("2 Player");
+		twoPlayer.addActionListener(this);
+		twoPlayer.setSelected(true);
+		computer = new JRadioButton("Computer");
+		computer.addActionListener(this);
+		modeChoice = new ButtonGroup();
+		modeChoice.add(twoPlayer);
+		modeChoice.add(computer);
+		remainWhiteLabel = new JLabel(" x 9", whiteIcon, JLabel.LEFT);
+		remainBlackLabel = new JLabel(" x 9", blackIcon, JLabel.LEFT);
 		westPanel = new JPanel();
-		westPanel.setLayout(new GridLayout(15,1));
+		westPanel.setLayout(new GridLayout(10,1));
 		westPanel.add(newGameButton);
 		westPanel.add(exitGameButton);
+		westPanel.add(twoPlayer);
+		westPanel.add(computer);
+		westPanel.add(remainWhiteLabel);
+		westPanel.add(remainBlackLabel);
 	}
 	
 	public void initSouthPanel() {
@@ -136,6 +158,7 @@ public class GUI implements ActionListener, MouseListener {
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
+		mainFrame.setResizable(false);
 	}
 	
 	public void newGame() {
@@ -153,7 +176,7 @@ public class GUI implements ActionListener, MouseListener {
 			p = game.placePiece(n.getIndex());
 			
 		} catch (IllegalMoveException e) {
-			e.printStackTrace();
+			setStatus(e.getMessage());
 		}
 	}
 	
@@ -165,12 +188,8 @@ public class GUI implements ActionListener, MouseListener {
 			game.removePiece(n.getIndex());
 			
 		} catch (IllegalMoveException e) {
-			e.printStackTrace();
+			setStatus(e.getMessage());
 		}
-	}
-	
-	public void movePiece(int x, int y) {
-		
 	}
 	
 	public void selectPiece(int x, int y) {
@@ -195,6 +214,12 @@ public class GUI implements ActionListener, MouseListener {
 			}
 		}
 		setStatus(game.currentPlayer.name + ":" + game.expectedMove.toString());
+		int whites = game.player1.totalPieces();
+		int blacks = game.player2.totalPieces();
+		
+		remainWhiteLabel.setText(" x " + game.player1.unplacedPieces());
+		remainBlackLabel.setText(" x " + game.player2.unplacedPieces());
+		westPanel.repaint();
 	}
 	
 	public void setNodeLabelBlack(int index) {
@@ -227,30 +252,6 @@ public class GUI implements ActionListener, MouseListener {
 			nodeLabels[i].setBounds(game.board.getNode(i).getXCoord()-nodeRadius,
 					game.board.getNode(i).getYCoord()-nodeRadius,nodeDiameter,nodeDiameter);
 		}
-		/*nodeLabels[0].setBounds(30-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[1].setBounds(320-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[2].setBounds(610-nodeRadius,30-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[3].setBounds(126-nodeRadius,126-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[4].setBounds(320-nodeRadius,126-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[5].setBounds(514-nodeRadius,126-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[6].setBounds(223-nodeRadius,223-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[7].setBounds(320-nodeRadius,223-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[8].setBounds(417-nodeRadius,223-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[9].setBounds(30-nodeRadius,320-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[10].setBounds(126-nodeRadius,320-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[11].setBounds(223-nodeRadius,320-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[12].setBounds(417-nodeRadius,320-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[13].setBounds(514-nodeRadius,320-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[14].setBounds(610-nodeRadius,320-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[15].setBounds(223-nodeRadius,417-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[16].setBounds(320-nodeRadius,417-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[17].setBounds(417-nodeRadius,417-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[18].setBounds(126-nodeRadius,514-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[19].setBounds(320-nodeRadius,514-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[20].setBounds(514-nodeRadius,514-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[21].setBounds(30-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[22].setBounds(320-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);
-		nodeLabels[23].setBounds(610-nodeRadius,610-nodeRadius,nodeDiameter,nodeDiameter);*/
 	}
 	
 	public void setStatus(String s) {
@@ -262,6 +263,18 @@ public class GUI implements ActionListener, MouseListener {
 			System.exit(0);
 		if(ae.getSource().equals(newGameButton))
 			newGame();
+		if(ae.getSource().equals(twoPlayer)) {
+			AIMode = false;
+			newGame();
+			if(!AIMode)
+				setStatus("2 Player Enabled");
+		}
+		if(ae.getSource().equals(computer)) {
+			AIMode = true;
+			newGame();
+			if(AIMode)
+				setStatus("AIMode Enabled");
+		}
 	}
 	
 	public void mousePressed(MouseEvent me) {
@@ -271,12 +284,16 @@ public class GUI implements ActionListener, MouseListener {
 				if(game.expectedMove == Game.Move.Place) {
 					addPiece(me.getX(), me.getY());
 					redrawBoard();
+					// ai move call
 				}
 				else if(game.expectedMove == Game.Move.Move) {
 					//selectPiece.(me.getX(), me.getY());
-					if(selectedNode == null && game.currentPlayer == game.board.getNode(i).getPlayer()) {
+					if(selectedNode == null || game.currentPlayer == game.board.getNode(i).getPlayer()) {
+						if(game.currentPlayer != game.board.getNode(i).getPlayer())
+							return;
 						selectPiece(me.getX(), me.getY());
 						redrawBoard();
+						// ai move call
 					}
 					else {
 						try {
@@ -284,14 +301,16 @@ public class GUI implements ActionListener, MouseListener {
 							selectedNode = null;
 							game.board.unSelectAll();
 							redrawBoard();
+							// ai move call
 						} catch (IllegalMoveException e) {
-							e.printStackTrace();
+							setStatus(e.getMessage());
 						}
 					}
 				}
 				else if(game.expectedMove == Game.Move.Remove) {
 					removePiece(me.getX(), me.getY());
 					redrawBoard();
+					// ai move call
 				}
 				if(game.expectedMove == Game.Move.None) {
 					String winner = game.getWinner().name;
