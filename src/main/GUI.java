@@ -280,7 +280,17 @@ public class GUI implements ActionListener, MouseListener {
 				if(game.expectedMove == Game.Move.Place) {
 					addPiece(me.getX(), me.getY());
 					redrawBoard();
-					// ai move call
+					if(AIMode) {
+						// AI move call
+						
+						// sleep for 1 second before drawing AI's move
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						// redrawBoard();
+					}
 				}
 				else if(game.expectedMove == Game.Move.Move) {
 					//selectPiece.(me.getX(), me.getY());
@@ -289,7 +299,6 @@ public class GUI implements ActionListener, MouseListener {
 							return;
 						selectPiece(me.getX(), me.getY());
 						redrawBoard();
-						// ai move call
 					}
 					else {
 						try {
@@ -297,7 +306,17 @@ public class GUI implements ActionListener, MouseListener {
 							selectedNode = null;
 							game.board.unSelectAll();
 							redrawBoard();
-							// ai move call
+							if(AIMode) {
+								// AI move call
+								
+								// sleep for 1 second before drawing AI's move
+								try {
+									Thread.sleep(1000);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								// redrawBoard();
+							}
 						} catch (IllegalMoveException e) {
 							setStatus(e.getMessage());
 						}
@@ -306,11 +325,24 @@ public class GUI implements ActionListener, MouseListener {
 				else if(game.expectedMove == Game.Move.Remove) {
 					removePiece(me.getX(), me.getY());
 					redrawBoard();
-					// ai move call
+					if(AIMode) {
+						
+						// AI move call
+						
+						// sleep for 1 second before drawing AI's move
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						// redrawBoard();
+					}
 				}
 				if(game.expectedMove == Game.Move.None) {
 					String winner = game.getWinner().name;
-					JOptionPane.showMessageDialog(mainFrame, winner+ " wins!");
+					String s = "resources/dancing_peng.gif";
+					ImageIcon ii = new ImageIcon(s);
+					JOptionPane.showMessageDialog(mainFrame, winner + " wins!", "About", JOptionPane.INFORMATION_MESSAGE, ii);
 					setStatus("Click new Game to play again");
 				}
 			}
