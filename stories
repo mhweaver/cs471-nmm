@@ -12,3 +12,11 @@ User story 2 (Matt): As a lowly soldier in Rome's 17th legion, I desire to
                      myself in front of my cohorts, so I want to be able to 
                      practice against some sort of magic, invisible player of a 
                      relatively low skill level. 
+                     
+User story 3 (Zakk): As a player suffering for amnesia I sometimes forget where 
+					 I clicked. I would like each the piece I am trying to move 
+					 during phase 2 to be highlighed so I don't forget.
+					 
+User story 4 (Zakk): As a person with poor short term memory I can't keep track of how
+					 many pieces I have. I would like a counter to show how many pieces
+					 I have left.
