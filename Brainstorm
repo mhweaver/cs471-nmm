@@ -50,3 +50,13 @@ Fixed graphics, set up new meeting at 10/13/14 11:am
 10/13/14 11:00am-2:30pm Meeting
 Extensive testing and bugfixing
 #FILL WITH GIT COMMIT LOG INFO
+Functional, nearly feature complete
+
+10/14/14 3:00pm Meeting
+Create bug list:
+Win pop-up not immediate
+After a move, can select wrong nodes once
+Feature requests:
+Show pieces left to place
+Show errors without printing exception (catch exceptions)
+Random move AI (very easy mode)
