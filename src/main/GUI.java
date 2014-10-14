@@ -273,7 +273,7 @@ public class GUI implements ActionListener, MouseListener {
 				}
 				else if(game.expectedMove == Game.Move.Move) {
 					//selectPiece.(me.getX(), me.getY());
-					if(selectedNode == null || game.currentPlayer == game.board.getNode(i).getPlayer())
+					if(selectedNode == null && game.currentPlayer == game.board.getNode(i).getPlayer())
 						selectPiece(me.getX(), me.getY());
 					else {
 						try {
