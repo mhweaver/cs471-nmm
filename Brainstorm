@@ -60,6 +60,8 @@ Matt, Matthew, and Zakk 1 hour pair programming
 
 Create bug list:
 
+*fixed* Win pop-up not immediate
+*fixed* After a move, can select wrong nodes once
 
 Feature requests:
 Show pieces left to place
@@ -67,5 +69,5 @@ Show errors without printing exception (catch exceptions)
 Random move AI (very easy mode)
 
 For next meeting:
-Zakk - Make piece counter graphic
+Zakk - Make remaining pieces graphic, show errors without printing
 
