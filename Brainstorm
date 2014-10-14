@@ -54,8 +54,8 @@ Functional, nearly feature complete
 
 10/14/14 3:00pm Meeting
 Create bug list:
-Win pop-up not immediate
-After a move, can select wrong nodes once
+*fixed* Win pop-up not immediate
+*fixed* After a move, can select wrong nodes once
 Feature requests:
 Show pieces left to place
 Show errors without printing exception (catch exceptions)
