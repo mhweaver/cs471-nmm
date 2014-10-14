@@ -266,14 +266,10 @@ public class GUI implements ActionListener, MouseListener {
 		if(ae.getSource().equals(twoPlayer)) {
 			AIMode = false;
 			newGame();
-			if(!AIMode)
-				setStatus("2 Player Enabled");
 		}
 		if(ae.getSource().equals(computer)) {
 			AIMode = true;
 			newGame();
-			if(AIMode)
-				setStatus("AIMode Enabled");
 		}
 	}
 	
