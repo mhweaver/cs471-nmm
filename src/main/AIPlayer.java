@@ -14,7 +14,8 @@ public class AIPlayer extends Player {
     super(name);
   }
   public AIPlayer(String name, Game game) {
-    
+    this(name);
+    this.game = game;
   }
   
   public void doNextMove() throws IllegalMoveException {
