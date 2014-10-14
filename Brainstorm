@@ -47,13 +47,25 @@ Matthew & Zakk 30 minutes pair programming
 10/07/14 3:00pm Meeting
 Fixed graphics, set up new meeting at 10/13/14 11:am
 
-10/13/14 11:00am-2:30pm Meeting
+10/13/14 10:30am-2:30pm Meeting
 Extensive testing and bugfixing
 Matt, Matthew, and Zakk 4 hours pair programming
-#FILL WITH GIT COMMIT LOG INFO
 
-10/14/14 2:50pm
+
+#FILL WITH GIT COMMIT LOG INFO
+Functional, nearly feature complete
+
+10/14/14 2:50pm meeting
 Matt, Matthew, and Zakk 1 hour pair programming
+
+Create bug list:
+
+
+Feature requests:
+Show pieces left to place
+Show errors without printing exception (catch exceptions)
+Random move AI (very easy mode)
 
 For next meeting:
 Zakk - Make piece counter graphic
+
