@@ -270,16 +270,20 @@ public class GUI implements ActionListener, MouseListener {
 				//System.out.println(i);
 				if(game.expectedMove == Game.Move.Place) {
 					addPiece(me.getX(), me.getY());
+					redrawBoard();
 				}
 				else if(game.expectedMove == Game.Move.Move) {
 					//selectPiece.(me.getX(), me.getY());
-					if(selectedNode == null || game.currentPlayer == game.board.getNode(i).getPlayer())
+					if(selectedNode == null || game.currentPlayer == game.board.getNode(i).getPlayer()) {
 						selectPiece(me.getX(), me.getY());
+						redrawBoard();
+					}
 					else {
 						try {
 							game.movePiece(selectedNode.getIndex(), game.board.getNode(i).getIndex());
 							selectedNode = null;
 							game.board.unSelectAll();
+							redrawBoard();
 						} catch (IllegalMoveException e) {
 							e.printStackTrace();
 						}
@@ -287,6 +291,7 @@ public class GUI implements ActionListener, MouseListener {
 				}
 				else if(game.expectedMove == Game.Move.Remove) {
 					removePiece(me.getX(), me.getY());
+					redrawBoard();
 				}
 				if(game.expectedMove == Game.Move.None) {
 					String winner = game.getWinner().name;
@@ -295,8 +300,6 @@ public class GUI implements ActionListener, MouseListener {
 				}
 			}
 		}
-		redrawBoard();
-		
 	}
 	
 	
