@@ -22,19 +22,19 @@ public class AIPlayer extends Player {
       throw new IllegalMoveException("Out of turn move by AI player");
     switch (game.expectedMove) {
       case Place:
-        nextPlacePiece();
+        doNextPlacePiece();
         break;
       case Move:
-        nextMovePiece();
+        doNextMovePiece();
         break;
       case Remove:
-        nextRemovePiece();
+        doNextRemovePiece();
         break;
       case None:
     }
   }
 
-  private void nextPlacePiece() {
+  private void doNextPlacePiece() {
     // First, attempt to block potential mills
     for (int i = 0; i<24; i++) {
       if (isPotentialMill(i, getOpponent())) {
@@ -76,7 +76,7 @@ public class AIPlayer extends Player {
     }
   }
   
-  private void nextRemovePiece() {
+  private void doNextRemovePiece() {
     Player opponent = getOpponent();
     LinkedList<Node> opponentNodes = new LinkedList<Node>();
     
@@ -96,8 +96,72 @@ public class AIPlayer extends Player {
     }
   }
   
-  private void nextMovePiece() {
+  private void doNextMovePiece() {
+    Board scratch = game.board.copy();
     
+    // Find a mill-creating move
+    for (Node n : myNodes()) {
+      int nIndex = n.getIndex();
+      int dest = -1;
+      Node nScratch = scratch.getNode(nIndex);
+      
+      // Look for possible mills, if this piece is moved
+      nScratch.setPlayer(null);
+      for (int j = 0; j<4; j++) {
+        Node adj;
+        switch (j) {
+          case 1: adj = nScratch.left;
+          case 2: adj = nScratch.right;
+          case 3: adj = nScratch.up;
+          case 4: 
+          default: adj = nScratch.down;
+        }
+        if (adj != null) {
+          adj.setPlayer(this);
+          if (adj.mill()) {
+            dest = adj.getIndex();
+          }
+          adj.setPlayer(null);
+        }
+      }
+      
+      // If a mill can be made, make it
+      if (dest != -1) {
+        try {
+          game.movePiece(nIndex, dest);
+          return;
+        } catch (IllegalMoveException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+      nScratch.setPlayer(this);
+    }
+    
+    // No mills possible, so just do something random
+    LinkedList<Node> myNodes = myNodes();
+    Random r = new Random();
+    do {
+      Node n = myNodes.get(r.nextInt(myNodes.size()));
+      Node to;
+      int direction = r.nextInt(4);
+      switch (direction) {
+        case 1: to = n.left;
+        case 2: to = n.right;
+        case 3: to = n.up;
+        case 4: 
+        default: to = n.down;
+      }
+      if (to != null && to.getPlayer() == null) {
+        try {
+          game.movePiece(n.getIndex(), to.getIndex());
+        } catch (IllegalMoveException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        return;
+      }
+    } while (true);
   }
   
   private boolean isPotentialMill(int index, Player player) {
@@ -142,4 +206,14 @@ public class AIPlayer extends Player {
     return (this == game.player1) ? game.player2 : game.player1;
   }
 
+  private LinkedList<Node> myNodes() {
+    LinkedList<Node> nodes = new LinkedList<Node>();
+    for (int i = 0; i<24; i++) {
+      if (game.board.getNode(i).getPlayer() == this) {
+        nodes.add(game.board.getNode(i));
+      }
+    }
+    
+    return nodes;
+  }
 }

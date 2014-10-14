@@ -113,6 +113,14 @@ public class Board {
 	  }
   }
   
+  public Board copy() {
+    Board b = new Board();
+    for (int i = 0; i<24; i++) {
+      b.nodes[i].setPlayer(this.nodes[i].getPlayer());
+    }
+    return b;
+  }
+  
   public class Test {
     public Node[] getNodes() {
       return nodes;
