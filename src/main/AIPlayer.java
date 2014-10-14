@@ -1,5 +1,8 @@
 package main;
 
+import java.util.LinkedList;
+import java.util.Random;
+
 public class AIPlayer extends Player {
   private Game game;
   
@@ -34,7 +37,7 @@ public class AIPlayer extends Player {
   private void nextPlacePiece() {
     // First, attempt to block potential mills
     for (int i = 0; i<24; i++) {
-      if (isPotentialMill(i)) {
+      if (isPotentialMill(i, getOpponent())) {
         try {
           game.placePiece(i);
           return;
@@ -74,14 +77,30 @@ public class AIPlayer extends Player {
   }
   
   private void nextRemovePiece() {
+    Player opponent = getOpponent();
+    LinkedList<Node> opponentNodes = new LinkedList<Node>();
     
+    // Find all of the opponent's nodes
+    for (int i = 0; i<24; i++) {
+      if (game.board.getNode(i).getPlayer() == opponent) {
+        opponentNodes.add(game.board.getNode(i));
+      }
+    }
+    
+    // Remove a random opponent node
+    try {
+      game.removePiece(new Random().nextInt(opponentNodes.size()));
+    } catch (IllegalMoveException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
   
   private void nextMovePiece() {
     
   }
   
-  private boolean isPotentialMill(int index) {
+  private boolean isPotentialMill(int index, Player player) {
     Node n = game.board.getNode(index);
     
     // Node is already occupied, so a piece can't be placed here
@@ -93,25 +112,24 @@ public class AIPlayer extends Player {
     for (; hNode.left != null; hNode = hNode.left);
     for (; vNode.up != null; vNode = vNode.up);
     
-    Player opponent = getOpponent();
-    int opponentNodes = 0;
+    int playersNodes = 0;
     
-    // Check if there are 2 nodes owned by the opponent in this row
+    // Check if there are 2 nodes owned by the player in this row
     // If so, return true
     while ((hNode = hNode.right) != null) {
-      if (hNode.getPlayer() == opponent) 
-        opponentNodes++;
-      if (opponentNodes == 2)
+      if (hNode.getPlayer() == player) 
+        playersNodes++;
+      if (playersNodes == 2)
         return true;
     }
 
-    // Check if there are 2 nodes owned by the opponent in this column
+    // Check if there are 2 nodes owned by the player in this column
     // If so, return true    
-    opponentNodes = 0;
+    playersNodes = 0;
     while ((vNode = vNode.down) != null) {
-      if (vNode.getPlayer() == opponent) 
-        opponentNodes++;
-      if (opponentNodes == 2)
+      if (vNode.getPlayer() == player) 
+        playersNodes++;
+      if (playersNodes == 2)
         return true;
     }
 
