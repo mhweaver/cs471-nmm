@@ -64,8 +64,9 @@ Create bug list:
 *fixed* After a move, can select wrong nodes once
 
 Feature requests:
-Show pieces left to place
-Show errors without printing exception (catch exceptions)
+*added* Show pieces left to place
+*added* Show errors without printing exception (catch exceptions)
+Still need message for trying to remove from mill when non-mill pieces are available
 Random move AI (very easy mode)
 
 For next meeting:
