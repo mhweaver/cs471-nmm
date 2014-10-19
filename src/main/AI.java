@@ -31,7 +31,17 @@ public class AI {
 
   private void doPlacePiece() {
     // First, attempt to create mills
-    // TODO
+    for (int i = 0; i<24; i++) {
+      if (isPotentialMill(i, me)) {
+        try {
+          game.placePiece(i);
+          return;
+        } catch (IllegalMoveException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    }
     
     // Next, attempt to block potential mills
     for (int i = 0; i<24; i++) {
