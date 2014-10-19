@@ -30,7 +30,10 @@ public class AI {
   }
 
   private void doPlacePiece() {
-    // First, attempt to block potential mills
+    // First, attempt to create mills
+    // TODO
+    
+    // Next, attempt to block potential mills
     for (int i = 0; i<24; i++) {
       if (isPotentialMill(i, getOpponent())) {
         try {
@@ -167,7 +170,7 @@ public class AI {
     } while (true);
   }
   
-  private boolean isPotentialMill(int index, Player player) {
+  protected boolean isPotentialMill(int index, Player player) {
     Node n = game.board.getNode(index);
     
     // Node is already occupied, so a piece can't be placed here
@@ -183,29 +186,29 @@ public class AI {
     
     // Check if there are 2 nodes owned by the player in this row
     // If so, return true
-    while ((hNode = hNode.right) != null) {
+    do {
       if (hNode.getPlayer() == player) 
         playersNodes++;
       if (playersNodes == 2)
         return true;
-    }
+    }  while ((hNode = hNode.right) != null);
 
     // Check if there are 2 nodes owned by the player in this column
     // If so, return true    
     playersNodes = 0;
-    while ((vNode = vNode.down) != null) {
+    do {
       if (vNode.getPlayer() == player) 
         playersNodes++;
       if (playersNodes == 2)
         return true;
-    }
+    } while ((vNode = vNode.down) != null);
 
     // If we made it this far, then it's not possible to form a mill from
     // this node
     return false;
   }
   
-  private Player getOpponent() {
+  protected Player getOpponent() {
     return (me == game.player1) ? game.player2 : game.player1;
   }
   
@@ -213,7 +216,7 @@ public class AI {
     return me;
   }
 
-  private LinkedList<Node> myNodes() {
+  protected LinkedList<Node> myNodes() {
     LinkedList<Node> nodes = new LinkedList<Node>();
     for (int i = 0; i<24; i++) {
       if (game.board.getNode(i).getPlayer() == me) {

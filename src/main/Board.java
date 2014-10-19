@@ -20,7 +20,7 @@ package main;
 
 
 public class Board {
-  private Node[] nodes;
+  protected Node[] nodes;
   public Test test;
   public Board() {
     initNodes();
