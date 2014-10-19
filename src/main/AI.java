@@ -3,23 +3,17 @@ package main;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class AIPlayer extends Player {
+public class AI {
   private Game game;
+  private Player me;
   
-  public AIPlayer() {
-    this("Computer player");
-  }
-
-  public AIPlayer(String name) {
-    super(name);
-  }
-  public AIPlayer(String name, Game game) {
-    this(name);
+  public AI(Player player, Game game) {
+    this.me = player;
     this.game = game;
   }
   
   public void doNextMove() throws IllegalMoveException {
-    if (game.currentPlayer != this) 
+    if (game.currentPlayer != me) 
       throw new IllegalMoveException("Out of turn move by AI player");
     switch (game.expectedMove) {
       case Place:
@@ -118,7 +112,7 @@ public class AIPlayer extends Player {
           default: adj = nScratch.down;
         }
         if (adj != null) {
-          adj.setPlayer(this);
+          adj.setPlayer(me);
           if (adj.mill()) {
             dest = adj.getIndex();
           }
@@ -136,7 +130,7 @@ public class AIPlayer extends Player {
           e.printStackTrace();
         }
       }
-      nScratch.setPlayer(this);
+      nScratch.setPlayer(me);
     }
     
     // No mills possible, so just do something random
@@ -204,13 +198,13 @@ public class AIPlayer extends Player {
   }
   
   private Player getOpponent() {
-    return (this == game.player1) ? game.player2 : game.player1;
+    return (me == game.player1) ? game.player2 : game.player1;
   }
 
   private LinkedList<Node> myNodes() {
     LinkedList<Node> nodes = new LinkedList<Node>();
     for (int i = 0; i<24; i++) {
-      if (game.board.getNode(i).getPlayer() == this) {
+      if (game.board.getNode(i).getPlayer() == me) {
         nodes.add(game.board.getNode(i));
       }
     }
