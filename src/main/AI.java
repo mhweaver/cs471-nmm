@@ -17,19 +17,19 @@ public class AI {
       throw new IllegalMoveException("Out of turn move by AI player");
     switch (game.expectedMove) {
       case Place:
-        doNextPlacePiece();
+        doPlacePiece();
         break;
       case Move:
-        doNextMovePiece();
+        doMovePiece();
         break;
       case Remove:
-        doNextRemovePiece();
+        doRemovePiece();
         break;
       case None:
     }
   }
 
-  private void doNextPlacePiece() {
+  private void doPlacePiece() {
     // First, attempt to block potential mills
     for (int i = 0; i<24; i++) {
       if (isPotentialMill(i, getOpponent())) {
@@ -45,7 +45,7 @@ public class AI {
     
     // If no potential mills, then try to place at an intersection with the max 
     // # of open neighbors
-    int best = 0, bestOpenNeighbors = 0;
+    int best = -1, bestOpenNeighbors = -1;
     for (int i = 0; i<24; i++) {
       Node n = game.board.getNode(i);
       if (n.getPlayer() != null) continue;
@@ -71,7 +71,7 @@ public class AI {
     }
   }
   
-  private void doNextRemovePiece() {
+  private void doRemovePiece() {
     Player opponent = getOpponent();
     LinkedList<Node> opponentNodes = new LinkedList<Node>();
     
@@ -91,7 +91,7 @@ public class AI {
     }
   }
   
-  private void doNextMovePiece() {
+  private void doMovePiece() {
     Board scratch = game.board.copy();
     
     // Find a mill-creating move
@@ -199,6 +199,10 @@ public class AI {
   
   private Player getOpponent() {
     return (me == game.player1) ? game.player2 : game.player1;
+  }
+  
+  public Player getPlayer() {
+    return me;
   }
 
   private LinkedList<Node> myNodes() {

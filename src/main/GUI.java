@@ -49,6 +49,8 @@ public class GUI implements ActionListener, MouseListener {
 	private JLabel remainWhiteLabel;
 	
 	private boolean AIMode;
+	private AI ai;
+	private boolean doingAIMove = false;
 	
 	private Game game;
 	
@@ -270,27 +272,19 @@ public class GUI implements ActionListener, MouseListener {
 		if(ae.getSource().equals(computer)) {
 			AIMode = true;
 			newGame();
+			ai = new AI(game.player2, game);
 		}
 	}
 	
 	public void mousePressed(MouseEvent me) {
+	  if (doingAIMove) return;
+	  
 		for (int i =0; i<24; i++) {
 			if(game.board.getNode(i).isInRegion(me.getX(), me.getY())) {
 				//System.out.println(i);
 				if(game.expectedMove == Game.Move.Place) {
 					addPiece(me.getX(), me.getY());
 					redrawBoard();
-					if(AIMode) {
-						// AI move call
-						
-						// sleep for 1 second before drawing AI's move
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// redrawBoard();
-					}
 				}
 				else if(game.expectedMove == Game.Move.Move) {
 					//selectPiece.(me.getX(), me.getY());
@@ -306,17 +300,6 @@ public class GUI implements ActionListener, MouseListener {
 							selectedNode = null;
 							game.board.unSelectAll();
 							redrawBoard();
-							if(AIMode) {
-								// AI move call
-								
-								// sleep for 1 second before drawing AI's move
-								try {
-									Thread.sleep(1000);
-								} catch (InterruptedException e) {
-									e.printStackTrace();
-								}
-								// redrawBoard();
-							}
 						} catch (IllegalMoveException e) {
 							setStatus(e.getMessage());
 						}
@@ -325,18 +308,6 @@ public class GUI implements ActionListener, MouseListener {
 				else if(game.expectedMove == Game.Move.Remove) {
 					removePiece(me.getX(), me.getY());
 					redrawBoard();
-					if(AIMode) {
-						
-						// AI move call
-						
-						// sleep for 1 second before drawing AI's move
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// redrawBoard();
-					}
 				}
 				if(game.expectedMove == Game.Move.None) {
 					String winner = game.getWinner().name;
@@ -347,8 +318,42 @@ public class GUI implements ActionListener, MouseListener {
 				}
 			}
 		}
+		
+		redrawBoard();
+		// GUI player just made a move. Do AI move, if needed
+		if (AIMode && game.currentPlayer == ai.getPlayer()) {
+		  doAIMove();
+		}
 	}
 	
+	private void doAIMove() {
+	  if (AIMode && game.currentPlayer == ai.getPlayer()) {
+      setStatus("Computer player is thinking...");
+      doingAIMove = true;
+      // Pause for 1 second, then do the move
+      Timer timer = new Timer(2000, new ActionListener() {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           try {
+             while (game.currentPlayer == ai.getPlayer()) {
+               ai.doNextMove();
+             }
+            
+            redrawBoard();
+            doingAIMove = false;
+          } catch (IllegalMoveException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
+        }
+      });
+      
+      timer.setRepeats(false);
+      timer.start();      
+      
+    }
+	}
 	
 	// Unused methods inherited from MouseEvent
 	public void mouseClicked(MouseEvent me) {	
