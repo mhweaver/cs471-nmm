@@ -84,7 +84,9 @@ public class AI {
     
     // Remove a random opponent node
     try {
-      game.removePiece(new Random().nextInt(opponentNodes.size()));
+      int rand = new Random().nextInt(opponentNodes.size());
+      int removeIndex = opponentNodes.get(rand).getIndex();
+      game.removePiece(removeIndex);
     } catch (IllegalMoveException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -106,12 +108,15 @@ public class AI {
         Node adj;
         switch (j) {
           case 1: adj = nScratch.left;
+                  break;
           case 2: adj = nScratch.right;
+                  break;
           case 3: adj = nScratch.up;
+                  break;
           case 4: 
           default: adj = nScratch.down;
         }
-        if (adj != null) {
+        if (adj != null && adj.getPlayer() == null) {
           adj.setPlayer(me);
           if (adj.mill()) {
             dest = adj.getIndex();
@@ -142,8 +147,11 @@ public class AI {
       int direction = r.nextInt(4);
       switch (direction) {
         case 1: to = n.left;
+                break;
         case 2: to = n.right;
+                break;
         case 3: to = n.up;
+                break;
         case 4: 
         default: to = n.down;
       }

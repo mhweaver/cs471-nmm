@@ -50,7 +50,8 @@ public class GUI implements ActionListener, MouseListener {
 	
 	private boolean AIMode;
 	private AI ai;
-	private boolean doingAIMove = false;
+	private boolean movesBlocked = false;
+	private final int AI_DELAY = 1000;
 	
 	private Game game;
 	
@@ -165,6 +166,7 @@ public class GUI implements ActionListener, MouseListener {
 	
 	public void newGame() {
 		game = new Game();
+		movesBlocked = false;
 		redrawBoard();
 	}
 	
@@ -277,7 +279,7 @@ public class GUI implements ActionListener, MouseListener {
 	}
 	
 	public void mousePressed(MouseEvent me) {
-	  if (doingAIMove) return;
+	  if (movesBlocked) return;
 	  
 		for (int i =0; i<24; i++) {
 			if(game.board.getNode(i).isInRegion(me.getX(), me.getY())) {
@@ -310,11 +312,7 @@ public class GUI implements ActionListener, MouseListener {
 					redrawBoard();
 				}
 				if(game.expectedMove == Game.Move.None) {
-					String winner = game.getWinner().name;
-					String s = "resources/dancing_peng.gif";
-					ImageIcon ii = new ImageIcon(s);
-					JOptionPane.showMessageDialog(mainFrame, winner + " wins!", "About", JOptionPane.INFORMATION_MESSAGE, ii);
-					setStatus("Click new Game to play again");
+					gameOver();
 				}
 			}
 		}
@@ -329,19 +327,25 @@ public class GUI implements ActionListener, MouseListener {
 	private void doAIMove() {
 	  if (AIMode && game.currentPlayer == ai.getPlayer()) {
       setStatus("Computer player is thinking...");
-      doingAIMove = true;
+      movesBlocked = true;
+      
       // Pause for 1 second, then do the move
-      Timer timer = new Timer(2000, new ActionListener() {
-        
+      Timer timer = new Timer(AI_DELAY, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
            try {
+             // Make the AI moves
              while (game.currentPlayer == ai.getPlayer()) {
                ai.doNextMove();
              }
             
-            redrawBoard();
-            doingAIMove = false;
+             redrawBoard();
+             movesBlocked = false;
+
+             // Check to see if someone one
+             if (game.expectedMove == Game.Move.None) {
+               gameOver();
+             }
           } catch (IllegalMoveException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -353,6 +357,17 @@ public class GUI implements ActionListener, MouseListener {
       timer.start();      
       
     }
+	  
+	  
+	}
+	
+	private void gameOver() {
+	  String winner = game.getWinner().name;
+    String s = "resources/dancing_peng.gif";
+    ImageIcon ii = new ImageIcon(s);
+    JOptionPane.showMessageDialog(mainFrame, winner + " wins!", "About", JOptionPane.INFORMATION_MESSAGE, ii);
+    setStatus("Click new Game to play again");
+    movesBlocked = true;
 	}
 	
 	// Unused methods inherited from MouseEvent
