@@ -178,6 +178,7 @@ public class GUI implements ActionListener, MouseListener {
 		
 		try {
 			p = game.placePiece(n.getIndex());
+			redrawBoard();
 			
 		} catch (IllegalMoveException e) {
 			setStatus(e.getMessage());
@@ -190,7 +191,7 @@ public class GUI implements ActionListener, MouseListener {
 			return;
 		try {
 			game.removePiece(n.getIndex());
-			
+			redrawBoard();
 		} catch (IllegalMoveException e) {
 			setStatus(e.getMessage());
 		}
@@ -286,7 +287,6 @@ public class GUI implements ActionListener, MouseListener {
 				//System.out.println(i);
 				if(game.expectedMove == Game.Move.Place) {
 					addPiece(me.getX(), me.getY());
-					redrawBoard();
 				}
 				else if(game.expectedMove == Game.Move.Move) {
 					//selectPiece.(me.getX(), me.getY());
@@ -309,7 +309,6 @@ public class GUI implements ActionListener, MouseListener {
 				}
 				else if(game.expectedMove == Game.Move.Remove) {
 					removePiece(me.getX(), me.getY());
-					redrawBoard();
 				}
 				if(game.expectedMove == Game.Move.None) {
 					gameOver();
@@ -317,7 +316,6 @@ public class GUI implements ActionListener, MouseListener {
 			}
 		}
 		
-		redrawBoard();
 		// GUI player just made a move. Do AI move, if needed
 		if (AIMode && game.currentPlayer == ai.getPlayer()) {
 		  doAIMove();
@@ -326,6 +324,7 @@ public class GUI implements ActionListener, MouseListener {
 	
 	private void doAIMove() {
 	  if (AIMode && game.currentPlayer == ai.getPlayer()) {
+	    redrawBoard();
       setStatus("Computer player is thinking...");
       movesBlocked = true;
       
