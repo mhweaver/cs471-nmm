@@ -55,17 +55,17 @@ public class Game {
     }
     Node n = board.getNode(location);
     if (n.getPlayer() == null) {
-      throw new IllegalMoveException("No piece to remove");
+      throw new IllegalMoveException("Select an opponent's piece");
     }
     if (n.getPlayer() == currentPlayer) {
-      throw new IllegalMoveException("Wrong player");
+      throw new IllegalMoveException("You can't remove your own piece");
     }
     
     if (n.mill()) {
       for (int i = 0; i< 24; i++) {
         Node tempNode = board.getNode(i);
-        if (n != tempNode && 
-            tempNode.getPlayer() != currentPlayer && 
+        if (tempNode.getPlayer() == null) continue;
+        if (tempNode.getPlayer() != currentPlayer && 
             !tempNode.mill()) {
           throw new IllegalMoveException("You may not remove a piece from a mill unless there are no other options");
         }
