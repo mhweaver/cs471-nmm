@@ -317,7 +317,7 @@ public class GUI implements ActionListener, MouseListener {
 		}
 		
 		// GUI player just made a move. Do AI move, if needed
-		if (AIMode && game.currentPlayer == ai.getPlayer() && game.expectedMove == Game.Move.None) {
+		if (AIMode && game.currentPlayer == ai.getPlayer() && game.expectedMove != Game.Move.None) {
 		  doAIMove();
 		}
 	}
