@@ -1,8 +1,5 @@
 JC = javac -d .
 
-.java.class:
-	$(JC) $*.class
-
 run:	all
 	java main/NineMensMorris
 	
