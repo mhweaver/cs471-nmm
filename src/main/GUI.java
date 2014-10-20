@@ -167,6 +167,7 @@ public class GUI implements ActionListener, MouseListener {
 	public void newGame() {
 		game = new Game();
 		movesBlocked = false;
+		ai = new AI(game.player2, game);
 		redrawBoard();
 	}
 	
@@ -275,7 +276,6 @@ public class GUI implements ActionListener, MouseListener {
 		if(ae.getSource().equals(computer)) {
 			AIMode = true;
 			newGame();
-			ai = new AI(game.player2, game);
 		}
 	}
 	
@@ -334,7 +334,7 @@ public class GUI implements ActionListener, MouseListener {
         public void actionPerformed(ActionEvent e) {
            try {
              // Make the AI moves
-             while (game.currentPlayer == ai.getPlayer()) {
+             while (game.currentPlayer == ai.getPlayer() && game.expectedMove != Game.Move.None) {
                ai.doNextMove();
              }
             
