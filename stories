@@ -3,6 +3,8 @@ User story 1 (Matt): As president of the Western Idaho Ancient Boardgame Club,
                      against another club member. We are both familiar with the 
                      rules of the game and promise to play by them, so there is 
                      no need for the game to enforce the rules for us.
+           Tasks: 1. Build basic game architecture, to track board layout and state
+                  2. Build simple GUI for game 
 
 User story 2 (Matt): As a lowly soldier in Rome's 17th legion, I desire to 
                      demonstrate my tactical abilities to my commander, in order 
@@ -12,11 +14,16 @@ User story 2 (Matt): As a lowly soldier in Rome's 17th legion, I desire to
                      myself in front of my cohorts, so I want to be able to 
                      practice against some sort of magic, invisible player of a 
                      relatively low skill level. 
+           Tasks: 1. Create a simple AI for game
                      
 User story 3 (Zakk): As a player suffering for amnesia I sometimes forget where 
 					 I clicked. I would like each the piece I am trying to move 
 					 during phase 2 to be highlighed so I don't forget.
+ Tasks: 1. Implement a way of marking pieces when they have been selected to move  
 					 
 User story 4 (Zakk): As a person with poor short term memory I can't keep track of how
 					 many pieces I have. I would like a counter to show how many pieces
 					 I have left.
+ Tasks: 1. Show a counter in the GUI for how many pieces are left to place for each player
+        2. Change counters so that when all 9 piece have been placed, it shows 
+           how many pieces remain on the board for each player.
