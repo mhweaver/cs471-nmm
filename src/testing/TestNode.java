@@ -135,6 +135,24 @@ public class TestNode {
     assertTrue(n1.isNeighbor(n2));
     assertTrue(n1.isNeighbor(n4));
     assertFalse(n1.isNeighbor(n3));
+    
+    assertTrue(n5.isNeighbor(n2));
+    assertTrue(n5.isNeighbor(n4));
+    assertTrue(n5.isNeighbor(n6));
+    assertTrue(n5.isNeighbor(n8));
+  }
+  
+  @Test
+  public final void testSelect() {
+    assertFalse(n1.isSelected());
+    n1.unSelect();
+    assertFalse(n1.isSelected());
+    n1.select();
+    assertTrue(n1.isSelected());
+    n1.select();
+    assertTrue(n1.isSelected());
+    n1.unSelect();
+    assertFalse(n1.isSelected());
   }
 
 }
