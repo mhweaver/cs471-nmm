@@ -35,5 +35,19 @@ public class TestAccessor {
     }
   }
 
+  public static class Node {
+    public static main.Node getLeft(main.Node node) {
+      return node.left;
+    }
+    public static main.Node getRight(main.Node node) {
+      return node.right;
+    }
+    public static main.Node getUp(main.Node node) {
+      return node.up;
+    }
+    public static main.Node getDown(main.Node node) {
+      return node.down;
+    }
+  }
   
 }

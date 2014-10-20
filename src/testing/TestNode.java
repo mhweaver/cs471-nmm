@@ -51,31 +51,31 @@ public class TestNode {
 
   @Test
   public final void testNode() {
-    assertEquals(n1.test.getIndex(), 25);
+    assertEquals(n1.getIndex(), 25);
   }
 
   @Test
   public final void testSetLeft() {
     n2.setLeft(n1);
-    assertEquals(n2.test.getLeft(), n1);
+    assertEquals(TestAccessor.Node.getLeft(n2), n1);
   }
 
   @Test
   public final void testSetRight() {
     n1.setRight(n2);
-    assertEquals(n1.test.getRight(), n2);
+    assertEquals(TestAccessor.Node.getRight(n1), n2);
   }
 
   @Test
   public final void testSetUp() {
     n4.setUp(n1);
-    assertEquals(n4.test.getUp(), n1);
+    assertEquals(TestAccessor.Node.getUp(n4), n1);
   }
 
   @Test
   public final void testSetDown() {
     n1.setDown(n4);
-    assertEquals(n1.test.getDown(), n4);
+    assertEquals(TestAccessor.Node.getDown(n1), n4);
   }
 
   @Test

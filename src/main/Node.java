@@ -2,15 +2,12 @@ package main;
 //Created By: Matthew Gillatt
 public class Node {
   protected Node left, right, up, down;
-  private Player player = null;
-  private int index;
-  private boolean selected;
+  protected Player player = null;
+  protected int index;
+  protected boolean selected;
   
   //x and y coordinates of node on image
-  private int x;
-  private int y;
-  
-  public Test test = new Test();
+  protected int x, y;
   
   //Node stuff right
   public Node(int index) {
@@ -99,29 +96,6 @@ public class Node {
 	  return selected;
   }
   
-  public class Test {
-    public Node getLeft() {
-      return left;
-    }
-    public Node getRight() {
-      return right;
-    }
-    public Node getUp() {
-      return up;
-    }
-    public Node getDown() {
-      return down;
-    }
-    public Player getPlayer() {
-      return player;
-    }
-    public int getIndex() {
-      return index;
-    }
-    public int[] getCoords() {
-      int[] i = {x, y};
-      return i;
-    }
-  }
+  
   
 }
