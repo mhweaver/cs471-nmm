@@ -1,7 +1,7 @@
 package testing;
 
 import static org.junit.Assert.*;
-import main.Board;
+import main.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,22 +21,25 @@ public class TestBoard {
 
   @Test
   public final void testBoard() {
-    assertNotNull(b.test.getNodes());
+    Node[] nodes = TestAccessor.Board.getNodes(b);
+    assertNotNull(nodes);
   }
 
   @Test
   public final void testGetNodeInt() {
+    Node[] nodes = TestAccessor.Board.getNodes(b);
     for (int i = 0; i<24; i++) {
-      assertEquals(b.getNode(i), b.test.getNodes()[i]);
+      assertEquals(b.getNode(i), nodes[i]);
     }
   }
 
   @Test
   public final void testGetNodeIntInt() {
-    assertEquals(b.getNode(35, 40), b.test.getNodes()[0]);
-    assertEquals(b.getNode(223, 330), b.test.getNodes()[11]);
-    assertEquals(b.getNode(60, 30), b.test.getNodes()[0]);
-    assertEquals(b.getNode(30, 60), b.test.getNodes()[0]);
+    Node[] nodes = TestAccessor.Board.getNodes(b);
+    assertEquals(b.getNode(35, 40), nodes[0]);
+    assertEquals(b.getNode(223, 330), nodes[11]);
+    assertEquals(b.getNode(60, 30), nodes[0]);
+    assertEquals(b.getNode(30, 60), nodes[0]);
     assertNull(b.getNode(30, 61));
   }
 

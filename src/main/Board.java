@@ -21,10 +21,8 @@ package main;
 
 public class Board {
   protected Node[] nodes;
-  public Test test;
   public Board() {
     initNodes();
-    this.test = new Test();
   }
   private void initNodes() {
     nodes = new Node[24];
@@ -119,12 +117,6 @@ public class Board {
       b.nodes[i].setPlayer(this.nodes[i].getPlayer());
     }
     return b;
-  }
-  
-  public class Test {
-    public Node[] getNodes() {
-      return nodes;
-    }
   }
   
 }
