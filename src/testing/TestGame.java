@@ -79,6 +79,19 @@ public class TestGame {
     }
     assertEquals(TestAccessor.Game.getExpectedMove(game), TestAccessor.Game.Remove);
   }
+  
+  @Test
+  public final void testPlacePieceWrongMove() {
+    // Does an exception get thrown when placePiece is called when expectedMove isn't Place?
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Remove);
+    boolean caught = false;
+    try {
+      game.placePiece(0);
+    } catch (IllegalMoveException e) {
+      caught = true;
+    }
+    assertTrue(caught);
+  }
 
   @Test
   public final void testRemovePiece() {
@@ -135,6 +148,44 @@ public class TestGame {
       fail();
     }
   }
+  
+  @Test
+  public final void removePieceWrongMove() {
+    // Does an exception get thrown when expectedMove isn't Remove?
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Move);
+    boolean caught = false;
+    try {
+      game.removePiece(0);
+    } catch (IllegalMoveException e) {
+      caught = true;
+    }
+    assertTrue(caught);
+  }
+  
+  @Test
+  public final void removePieceInvalidPiece() {
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Remove);
+    nodes[0].setPlayer(player1);
+    nodes[1].setPlayer(null); // Redundant
+    
+    // Does a player removing their own piece throw an exception?
+    boolean caught = false;
+    try {
+      game.removePiece(0);
+    } catch (IllegalMoveException e) {
+      caught = true;
+    }
+    assertTrue(caught);
+    
+    // Does removing a non-existant piece throw an exception?
+    caught = false;
+    try {
+      game.removePiece(1);
+    } catch (IllegalMoveException e) {
+      caught = true;
+    }
+    assertTrue(caught);
+  }
 
   @Test
   public final void testMovePiece() {
@@ -184,8 +235,71 @@ public class TestGame {
       caught = true;
     }
     assertTrue(caught);
+    
+    // Attempt to move when expectedMove isn't Move
+    nodes[23].setPlayer(player2);
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Place);
+    caught = false;
+    try {
+      game.movePiece(23, 22);
+    } catch (IllegalMoveException e) {
+      //e.printStackTrace();
+      caught = true;
+    }
+    assertTrue(caught);
+    
+    // Attempt to move to an occupied spot
+    nodes[22].setPlayer(player2);
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Move);
+    caught = false;
+    try {
+      game.movePiece(23, 22);
+    } catch (IllegalMoveException e) {
+      //e.printStackTrace();
+      caught = true;
+    }
+    assertTrue(caught);
+  }
+  
+  @Test
+  public final void testMoveFlying() {
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Move);
+    nodes[0].setPlayer(player1);
+    for (int i = 0; i<9; i++) {
+      player1.placePiece();
+    }
+    
+    boolean caught = false;
+    try {
+      game.movePiece(0, 23);
+    } catch (IllegalMoveException e) {
+      caught = true;
+    }
+    assertTrue(caught);
+    caught = false;
+    try {
+      game.movePiece(0, 1);
+    } catch (IllegalMoveException e) {
+      fail();
+    }
   }
 
+  @Test
+  public final void testMoveCreatesMill() {
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Move);
+    nodes[0].setPlayer(player1);
+    nodes[1].setPlayer(player1);
+    nodes[14].setPlayer(player1);
+    try {
+      game.movePiece(14, 2);
+    } catch (IllegalMoveException e) {
+      e.printStackTrace();
+      fail();
+    }
+    assertEquals(TestAccessor.Game.getExpectedMove(game), TestAccessor.Game.Remove);
+    
+  }
+  
   @Test
   public final void testGetWinner() {
     assertNull(game.getWinner());
@@ -210,6 +324,19 @@ public class TestGame {
     assertFalse(player2.hasAvailableMoves(board));
     
     assertEquals(player1, game.getWinner());
+    
+    // Check that nextTurn() does end the game if a winner is found
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Move);
+    nodes[23].setPlayer(player1);
+    try {
+      game.movePiece(23, 22);
+    } catch (IllegalMoveException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      fail();
+    }
+    assertEquals(TestAccessor.Game.getExpectedMove(game), TestAccessor.Game.None);
+    
   }
 
 }
