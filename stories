@@ -27,3 +27,14 @@ User story 4 (Zakk): As a person with poor short term memory I can't keep track 
  Tasks: 1. Show a counter in the GUI for how many pieces are left to place for each player
         2. Change counters so that when all 9 piece have been placed, it shows 
            how many pieces remain on the board for each player.
+           
+User story 5 (Matthew): As a learning player, I hate it when I click on spaces and it
+		does nothing.  If I do something wrong, it needs to tell me and explain what's
+		wrong nicely, no computer error messages.
+		Tasks: 	1. Display status bar, print illegal moves on status bar
+		
+User story 6 (Matthew): As an old user, I don't like running programs over again to
+		make them do something else.  There should be buttons that make it easy to
+		play again, or choose options.  Games shouldn't have complicated menus.
+		Tasks: 	1. Add buttons for new game and exit.
+				2. Add radio buttons for options, such as 2-player or AI opponent.
