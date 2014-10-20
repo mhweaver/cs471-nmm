@@ -102,7 +102,7 @@ public class AI {
       game.removePiece(removeIndex);
     } catch (IllegalMoveException e) {
       // TODO Auto-generated catch block
-      e.printStackTrace();
+      // e.printStackTrace();
     }
   }
   
