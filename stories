@@ -1,16 +1,15 @@
 User story 1 (Matt): As president of the Western Idaho Ancient Boardgame Club, 
                      I would like to be able to play the game Nine Men's Morris 
-                     against another club member. We are both familiar with the 
-                     rules of the game and promise to play by them, so there is 
-                     no need for the game to enforce the rules for us.
+                     against another club member.
            Tasks: 1. Build basic game architecture, to track board layout and state
-                  2. Build simple GUI for game 
+                  2. Implement logic to enforce game rules
+                  3. Build simple GUI for game 
 
 User story 2 (Matt): As a lowly soldier in Rome's 17th legion, I desire to 
                      demonstrate my tactical abilities to my commander, in order 
-                     to secure a promotion. Since the command heirarchy seems 
+                     to secure a promotion. Since the command hierarchy seems 
                      fond of Nine Men's Morris, I want to master that game; 
-                     however I have never played. I do not want to embarass 
+                     however I have never played. I do not want to embarrass 
                      myself in front of my cohorts, so I want to be able to 
                      practice against some sort of magic, invisible player of a 
                      relatively low skill level. 
@@ -18,7 +17,7 @@ User story 2 (Matt): As a lowly soldier in Rome's 17th legion, I desire to
                      
 User story 3 (Zakk): As a player suffering for amnesia I sometimes forget where 
 					 I clicked. I would like each the piece I am trying to move 
-					 during phase 2 to be highlighed so I don't forget.
+					 during phase 2 to be highlighted so I don't forget.
  Tasks: 1. Implement a way of marking pieces when they have been selected to move  
 					 
 User story 4 (Zakk): As a person with poor short term memory I can't keep track of how
