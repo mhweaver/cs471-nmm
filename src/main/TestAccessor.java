@@ -16,6 +16,10 @@ public class TestAccessor {
 	}
   
   public static class Game {
+    public static main.Game.Move Place = main.Game.Move.Place;
+    public static main.Game.Move Move = main.Game.Move.Move;
+    public static main.Game.Move Remove = main.Game.Move.Remove;
+    public static main.Game.Move None = main.Game.Move.None;
     public static main.Player getPlayer1(main.Game game) {
       return game.player1;
     }
@@ -24,6 +28,15 @@ public class TestAccessor {
     }
     public static main.Board getBoard(main.Game game) {
       return game.board;
+    }
+    public static main.Game.Move getExpectedMove(main.Game game) {
+      return game.expectedMove;
+    }
+    public static main.Player getCurrentPlayer(main.Game game) {
+      return game.currentPlayer;
+    }
+    public static void setExpectedMove(main.Game game, main.Game.Move move) {
+      game.expectedMove = move;
     }
     
   }
