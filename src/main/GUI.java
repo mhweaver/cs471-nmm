@@ -48,7 +48,7 @@ public class GUI implements ActionListener, MouseListener {
 	private JLabel remainBlackLabel;
 	private JLabel remainWhiteLabel;
 	
-	private boolean AIMode;
+	protected boolean AIMode;
 	private AI ai;
 	private boolean movesBlocked = false;
 	private final int AI_DELAY = 1000;

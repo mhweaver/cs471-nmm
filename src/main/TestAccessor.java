@@ -3,6 +3,7 @@ package main;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 
 public class TestAccessor {
 	
@@ -12,6 +13,15 @@ public class TestAccessor {
 		}
 		public static main.Game getGUIGame(main.GUI gui) {
 			return gui.game;
+		}
+		public static boolean getGUIAIMode(main.GUI gui) {
+			return gui.AIMode;
+		}
+		public static JRadioButton getComputerButton(main.GUI gui) {
+			return gui.computer;
+		}
+		public static JRadioButton getTwoPlayerButton(main.GUI gui) {
+			return gui.twoPlayer;
 		}
 	}
   
