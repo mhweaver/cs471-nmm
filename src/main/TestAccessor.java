@@ -3,6 +3,7 @@ package main;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 public class TestAccessor {
@@ -22,6 +23,9 @@ public class TestAccessor {
 		}
 		public static JRadioButton getTwoPlayerButton(main.GUI gui) {
 			return gui.twoPlayer;
+		}
+		public static JPanel getCenterPanel(main.GUI gui) {
+			return gui.centerPanel;
 		}
 	}
   

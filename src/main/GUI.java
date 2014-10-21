@@ -39,7 +39,7 @@ public class GUI implements ActionListener, MouseListener {
 	protected JRadioButton computer;
 	private ButtonGroup modeChoice;
 	private JFrame mainFrame;
-	private JPanel centerPanel;
+	protected JPanel centerPanel;
 	private JPanel westPanel;
 	private JPanel southPanel;
 	private JLabel boardLabel;
