@@ -173,12 +173,11 @@ public class GUI implements ActionListener, MouseListener {
 	
 	public void addPiece(int x, int y) {
 		Node n = game.board.getNode(x,y);
-		Player p;
 		if(n == null)
 			return;
 		
 		try {
-			p = game.placePiece(n.getIndex());
+			game.placePiece(n.getIndex());
 			redrawBoard();
 			
 		} catch (IllegalMoveException e) {
