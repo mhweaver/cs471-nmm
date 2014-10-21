@@ -2,7 +2,18 @@ package main;
 
 import java.util.LinkedList;
 
+import javax.swing.JButton;
+
 public class TestAccessor {
+	
+	public static class GUI {
+		public static JButton getNewGameButton(main.GUI gui) {
+			return gui.newGameButton;
+		}
+		public static main.Game getGUIGame(main.GUI gui) {
+			return gui.game;
+		}
+	}
   
   public static class Game {
     public static main.Player getPlayer1(main.Game game) {

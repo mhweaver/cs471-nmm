@@ -33,10 +33,10 @@ public class GUI implements ActionListener, MouseListener {
 	private int boardLength;
 	private Node selectedNode;
 	
-	private JButton newGameButton;
+	protected JButton newGameButton;
 	private JButton exitGameButton;
-	private JRadioButton twoPlayer;
-	private JRadioButton computer;
+	protected JRadioButton twoPlayer;
+	protected JRadioButton computer;
 	private ButtonGroup modeChoice;
 	private JFrame mainFrame;
 	private JPanel centerPanel;
@@ -53,7 +53,7 @@ public class GUI implements ActionListener, MouseListener {
 	private boolean movesBlocked = false;
 	private final int AI_DELAY = 1000;
 	
-	private Game game;
+	protected Game game;
 	
 	public GUI() {
 		
