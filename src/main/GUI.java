@@ -340,7 +340,7 @@ public class GUI implements ActionListener, MouseListener {
              redrawBoard();
              movesBlocked = false;
 
-             // Check to see if someone one
+             // Check to see if someone won
              if (game.expectedMove == Game.Move.None) {
                gameOver();
              }
