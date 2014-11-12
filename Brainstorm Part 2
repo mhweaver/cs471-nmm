@@ -1,0 +1,31 @@
+***Nov 11 2014 2:45 - 3:45*** 
+make a use case diagram with 3 use case and sequence diagram
+
+zakk   -------> place piece
+		move piece ----> select piece, select destination
+
+matt	remove piece
+		new game
+		exit
+
+matthew	easy mode
+		hard mode
+		2 player	
+
+add new features
+	-harder mode
+	-bigger display
+	-shadow of remove
+	-undo move button
+	-counter keep track of how many pieces
+	-instructions in game help menu
+
+uml diagram
+
+
+-created text version of use case diagram
+-decided on features we want to add
+
+-For next meeting: write use case descriptions
+
+-next meeting: Nov 13 or Nov 18 @ 2:45
