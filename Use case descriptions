@@ -46,3 +46,18 @@ New game
 Exit
 1. A player clicks "exit" button
 2. Exit the program with exit code of 0
+
+
+Easy AI.
+1. The player clicks on the "Easy AI" radio button.
+2. The program starts a new game using an Easy AI as the black player.
+
+
+Hard AI.
+1. The player clicks on the "Hard AI" radio button.
+2. The program starts a new game using a Hard AI as the black player.
+
+
+2 Player.
+1. The player clicks on the "2 Player" radio button.
+2. The program starts a new game using a human player as white and black.
