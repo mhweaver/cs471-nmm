@@ -50,14 +50,17 @@ Exit
 
 Easy AI.
 1. The player clicks on the "Easy AI" radio button.
-2. The program starts a new game using an Easy AI as the black player.
+2. The program starts a new game.
+3. White is a new human player, Black is a new Easy AI player.
 
 
 Hard AI.
 1. The player clicks on the "Hard AI" radio button.
-2. The program starts a new game using a Hard AI as the black player.
+2. The program starts a new game.
+3. White is a new human player, Black is a new Hard AI player.
 
 
 2 Player.
 1. The player clicks on the "2 Player" radio button.
-2. The program starts a new game using a human player as white and black.
+2. The program starts a new game.
+3. White is a new human player, Black is a new human player.
