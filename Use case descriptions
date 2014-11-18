@@ -1,0 +1,48 @@
+Remove piece
+1. The current player selects a node
+2. If the expected move is none, then end the game and display the winner
+3. If the expected move is remove, then attempt to remove the piece:
+  3a. If the player selects an empty spot/node or one of their own pieces, then
+    Display an error message
+    Wait for the player to select a piece again (go to step 1)
+  3b. Otherwise,
+    Set the owner of the selected spot/node to null
+    Decrement the opponent's "pieces on board" variable by 1
+4. Start next turn
+5. If next move is none, end the game 
+
+
+Start next turn
+1. Switch current player to opponent
+2. Increment number of turns played
+3. Check to see if there is a winner:
+  3a. If either player has no available moves, then the other player wins
+    A player has available moves:
+      If they have pieces left to place on the board, they have available moves
+      Else, if they have less than 3 pieces on the board, the don't have any available moves
+      Else, if they have exactly 3 pieces on the board, they have available moves (because they can fly)
+      Else, if any of their pieces on the board can move to an adjacent spot (they are not blocked), they have available moves
+4. If there is no winner, set the expected next move:
+  4a. If the number of unplaced pieces for the current player is greater than 0, next move is place
+  4b. Otherwise, next move is move 
+5. If there is a winner, set the expected next move to none
+
+
+End the game
+1. Get the winner
+2. Display game over window
+3. Disable user input on game board
+
+
+New game
+1. A player clicks "new game" button
+2. Create a new game, which will create a new empty board and set expected move to Place
+3. Draw new, empty board
+4. Create new AI for the new game/board
+5. Enable user input on game board
+6. Wait for user input
+
+
+Exit
+1. A player clicks "exit" button
+2. Exit the program with exit code of 0
