@@ -31,7 +31,7 @@ uml diagram
 -next meeting: Nov 13 or Nov 18 @ 2:45
 
 
-***Nov 18 2014 2:45 - ***
+***Nov 18 2014 2:45 - 3:30 *** Present: Matthew, Matt
 -Collected use cases (and pushed to git repo)
 
 Todo list:
@@ -43,9 +43,9 @@ Todo list:
 =Design stuff
 --Summarize UI of program, using screenshots and textual descriptions
 --Class diagram (UML)
---Describe mill algorithm
---Describe game over and who is winner algorithm
---Describe AI algorithm
+--Describe mill algorithm (Matthew)
+--Describe game over and who is winner algorithm (Zakk)
+--Describe AI algorithm (Matt)
 --*Algorithms may use pseudo-code, but not code from program, 1 algorithm per person
 =Testing
 --Describe how program was tested against use case scenarios. List steps for each test
@@ -55,6 +55,17 @@ Todo list:
 =Add new features (above)
 
 For next time:
--Zakk - 
--Matt - 
--Matthew - 
+-All:     - Refine use cases and descriptions
+          - Use case scenarios for use cases
+          - Sequence diagram for each use case scenario
+-Zakk:    - Describe game over and who is winner algorithm
+-Matt:    - Describe AI algorithm
+-Matthew: - Describe mill algorithm
+-Someone (hopefully): - Figure out way to generate UML class diagram
+                      - Summarize UI of program, using screenshots and textual descriptions
+                      - Start implementing new features
+     
+Next meeting: Dec 2, 2014 @ 2:45ish     
+     
+     
+     
