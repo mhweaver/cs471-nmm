@@ -29,3 +29,32 @@ uml diagram
 -For next meeting: write use case descriptions
 
 -next meeting: Nov 13 or Nov 18 @ 2:45
+
+
+***Nov 18 2014 2:45 - ***
+-Collected use cases (and pushed to git repo)
+
+Todo list:
+=Requirements stuff
+--Get rest of use cases and use case descriptions
+--Use case diagram(s)
+--Use case scenario for use case
+---Sequence diagram for the realization of each scenario
+=Design stuff
+--Summarize UI of program, using screenshots and textual descriptions
+--Class diagram (UML)
+--Describe mill algorithm
+--Describe game over and who is winner algorithm
+--Describe AI algorithm
+--*Algorithms may use pseudo-code, but not code from program, 1 algorithm per person
+=Testing
+--Describe how program was tested against use case scenarios. List steps for each test
+--Describe detailed steps of 2 tests with human vs AI: human wins; AI wins
+--*Each team member must be involved in at least one of the above
+=Lessons learned
+=Add new features (above)
+
+For next time:
+-Zakk - 
+-Matt - 
+-Matthew - 
