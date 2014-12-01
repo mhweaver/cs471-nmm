@@ -219,11 +219,12 @@ public class GUI implements ActionListener, MouseListener {
 			}
 		}
 		setStatus(game.currentPlayer.name + ":" + game.expectedMove.toString());
-		int whites = game.player1.totalPieces();
-		int blacks = game.player2.totalPieces();
-		
-		remainWhiteLabel.setText(" x " + game.player1.unplacedPieces());
-		remainBlackLabel.setText(" x " + game.player2.unplacedPieces());
+		//int whites = game.player1.totalPieces();
+		//int blacks = game.player2.totalPieces();
+		if (game.player1.unplacedPieces()>0) remainWhiteLabel.setText(" x " + game.player1.unplacedPieces());
+		else remainWhiteLabel.setText(" x " + game.player1.piecesOnBoard());
+		if (game.player2.unplacedPieces()>0) remainBlackLabel.setText(" x " + game.player2.unplacedPieces());
+		else remainBlackLabel.setText(" x " + game.player2.piecesOnBoard());
 		westPanel.repaint();
 	}
 	
