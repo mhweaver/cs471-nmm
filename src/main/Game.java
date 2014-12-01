@@ -39,6 +39,7 @@ public class Game {
     n.setPlayer(currentPlayer);
     currentPlayer.placePiece();
     Player currPlayer = currentPlayer;
+    board.unSelectAll();
     
     if (n.mill()) {
       expectedMove = Move.Remove;
@@ -108,6 +109,7 @@ public class Game {
     
     fromNode.setPlayer(null);
     toNode.setPlayer(currentPlayer);
+    board.unSelectAll();
     
     if (toNode.mill()) {
       expectedMove = Move.Remove;

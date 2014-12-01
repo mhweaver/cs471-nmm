@@ -178,7 +178,6 @@ public class GUI implements ActionListener, MouseListener {
 		
 		try {
 			game.placePiece(n.getIndex());
-			game.board.unSelectAll(); //test
 			redrawBoard();
 			
 		} catch (IllegalMoveException e) {
@@ -300,7 +299,6 @@ public class GUI implements ActionListener, MouseListener {
 						try {
 							game.movePiece(selectedNode.getIndex(), game.board.getNode(i).getIndex());
 							selectedNode = null;
-							game.board.unSelectAll();
 							redrawBoard();
 						} catch (IllegalMoveException e) {
 							setStatus(e.getMessage());
