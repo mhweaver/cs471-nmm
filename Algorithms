@@ -1,0 +1,10 @@
+Node.mill() {
+	if this node has no piece, return false
+	find Nodes farLeft and farUp
+	to find farLeft, check the left node until the left link is null
+	to find farUp, check the up node until the up link is null
+	if farLeft, its right node, and its right right node have the same piece, return true
+	if farUp, its down node, and its down down node have the same piece, return true
+	otherwise return false
+	//All nodes are part of a horizontal and vertical row of 3.  This covers all cases.
+}
