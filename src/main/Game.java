@@ -74,6 +74,7 @@ public class Game {
     
     n.getPlayer().removePiece();
     n.setPlayer(null);
+    n.select();
     
     nextTurn();
   }
