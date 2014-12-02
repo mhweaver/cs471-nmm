@@ -145,7 +145,8 @@ public class GUI implements ActionListener, MouseListener {
 		southPanel = new JPanel(new BorderLayout());
 		statusField = new JTextField("");
 		setStatus(game.currentPlayer.name + ":" + game.expectedMove.toString());
-		statusField.setSize(15,boardLength);
+		statusField.setSize(50,boardLength);
+		statusField.setFont(statusField.getFont().deriveFont(25.0f));
 		southPanel.add(statusField, BorderLayout.SOUTH);
 		
 	}
