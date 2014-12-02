@@ -21,6 +21,9 @@ public class GUI implements ActionListener, MouseListener {
 	private String blankPath;
 	private String blackAvailablePath;
 	private String whiteAvailablePath;
+	private String gameMenuText;
+	private String helpText;
+	private String gameRules;
 	private ImageIcon boardIcon;
 	private ImageIcon whiteIcon;
 	private ImageIcon blackIcon;
@@ -47,6 +50,11 @@ public class GUI implements ActionListener, MouseListener {
 	private JLabel[] nodeLabels;
 	private JLabel remainBlackLabel;
 	private JLabel remainWhiteLabel;
+	private JMenuBar menuBar;
+	private JMenu gameMenu;
+	private JMenuItem newGameItem;
+	private JMenuItem helpItem;
+	private JMenuItem exitItem;
 	
 	protected boolean AIMode;
 	private AI ai;
@@ -68,6 +76,9 @@ public class GUI implements ActionListener, MouseListener {
 		whiteAvailablePath = "resources/whites.png";
 		newGameText = "New Game";
 		exitGameText = "Exit";
+		gameMenuText = "Game";
+		helpText = "Game Rules";
+		gameRules = getGameRules();
 		boardIcon = new ImageIcon(imagePath);
 		whiteIcon = new ImageIcon(whitePath);
 		blackIcon = new ImageIcon(blackPath);
@@ -91,6 +102,9 @@ public class GUI implements ActionListener, MouseListener {
 		
 		//Create South Panel
 		initSouthPanel();
+		
+		//Create Menu Bar
+		initMenuBar();
 		
 		//Create Main Frame
 		initMainFrame();
@@ -148,7 +162,21 @@ public class GUI implements ActionListener, MouseListener {
 		statusField.setSize(50,boardLength);
 		statusField.setFont(statusField.getFont().deriveFont(25.0f));
 		southPanel.add(statusField, BorderLayout.SOUTH);
-		
+	}
+	
+	public void initMenuBar() {
+		menuBar = new JMenuBar();
+		gameMenu = new JMenu(gameMenuText);
+		newGameItem = new JMenuItem(newGameText);
+		newGameItem.addActionListener(this);
+		helpItem = new JMenuItem(helpText);
+		helpItem.addActionListener(this);
+		exitItem = new JMenuItem(exitGameText);
+		exitItem.addActionListener(this);
+		gameMenu.add(newGameItem);
+		gameMenu.add(helpItem);
+		gameMenu.add(exitItem);
+		menuBar.add(gameMenu);
 	}
 	
 	public void initMainFrame() {
@@ -157,7 +185,8 @@ public class GUI implements ActionListener, MouseListener {
 		mainFrame.add(westPanel, BorderLayout.WEST);
 		mainFrame.add(centerPanel, BorderLayout.CENTER);
 		mainFrame.add(southPanel, BorderLayout.SOUTH);
-		mainFrame.setPreferredSize(new Dimension(760, 690));
+		mainFrame.setJMenuBar(menuBar);
+		mainFrame.setPreferredSize(new Dimension(760, 720));
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
@@ -266,9 +295,11 @@ public class GUI implements ActionListener, MouseListener {
 	}
 	
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource().equals(exitGameButton))
+		if(ae.getSource().equals(exitGameButton) || 
+				ae.getSource().equals(exitItem))
 			System.exit(0);
-		if(ae.getSource().equals(newGameButton))
+		if(ae.getSource().equals(newGameButton) ||
+				ae.getSource().equals(newGameItem))
 			newGame();
 		if(ae.getSource().equals(twoPlayer)) {
 			AIMode = false;
@@ -277,6 +308,16 @@ public class GUI implements ActionListener, MouseListener {
 		if(ae.getSource().equals(computer)) {
 			AIMode = true;
 			newGame();
+		}
+		if(ae.getSource().equals(helpItem)) {
+			JFrame displayRules = new JFrame("Rules");
+			displayRules.setLayout(new BorderLayout());
+            displayRules.setSize( 700, 500 );
+            JTextArea ta = new JTextArea(gameRules);
+            JScrollPane scroll = new JScrollPane(ta);
+            displayRules.getContentPane().add(scroll, BorderLayout.CENTER); 
+            displayRules.add(scroll);
+            displayRules.setVisible(true);
 		}
 	}
 	
@@ -379,4 +420,39 @@ public class GUI implements ActionListener, MouseListener {
 	public void mouseReleased(MouseEvent arg0) {	
 	}
 
+	public String getGameRules() {
+		gameRules = "Game rules\n"
+				+ "\n"
+				+ "The board consists of a grid with twenty-four intersections or points. Each player has nine pieces,\n"
+				+ "or men, usually coloured black and white. Players try to form mills— three of their own men lined \n"
+				+ "horizontally or vertically—allowing a player to remove an opponents man from the game. A player\n"
+				+ "wins by reducing the opponent to two pieces (where he could no longer form mills and thus be\n"
+				+ "unable to win), or by leaving him without a legal move.\n"
+				+ "\n"
+				+ "The game proceeds in three phases:\n"
+				+ "1. placing men on vacant points\n"
+				+ "2. moving men to adjacent points\n"
+				+ "3. moving men to any vacant point when a player has been reduced to three men\n"
+				+ "\n"
+				+ "Phase one: placing pieces\n"
+				+ "The game begins with an empty board. The players determine who plays first, then take turns\n"
+				+ "placing their men one per play on empty points. If a player is able to place three of his\n"
+				+ "pieces in a straight line, vertically or horizontally, he has formed a mill and may remove\n"
+				+ "one of his opponent's pieces from the board and the game. Any piece can be chosen for the\n"
+				+ "removal, but a piece not in an opponent's mill must be selected, if possible.\n"
+				+ "\n"
+				+ "Phase two: moving pieces\n"
+				+ "Players continue to alternate moves, this time moving a man to an adjacent point.\n"
+				+ "A piece may not jump another piece. Players continue to try to form mills and remove\n"
+				+ "their opponent's pieces in the same manner as in phase one. A player may break a mill by\n"
+				+ "moving one of his pieces out of an existing mill, then moving the piece back to form the\n"
+				+ "same mill a second time (or any number of times), each time removing one of his opponent's\n"
+				+ "men. When one player has been reduced to three men, phase three begins.\n"
+				+ "\n"
+				+ "Phase three: flying\n"
+				+ "When a player is reduced to three pieces, there is no longer a limitation of moving\n"
+				+ "to only adjacent points: The players men may fly, hop, or jump from any point to any\n"
+				+ "vacant point.";
+		return gameRules;
+	}
 }
