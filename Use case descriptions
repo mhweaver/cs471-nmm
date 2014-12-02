@@ -64,3 +64,14 @@ Hard AI.
 1. The player clicks on the "2 Player" radio button.
 2. The program starts a new game.
 3. White is a new human player, Black is a new human player.
+
+Place Piece
+1. The player clicks on an unused node to place a piece.
+2. If that node is unused a piece is displayed on board
+3. If node is used player will be informed to use an open node
+   
+Move Piece
+1. Player selects a pieces to move
+2. If this node is the player's then it is highlighted
+3. Player selects an empty space to move his piece to.
+4. If this is a legal move then selected piece is moved to this place
