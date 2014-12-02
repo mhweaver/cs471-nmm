@@ -67,11 +67,13 @@ Hard AI.
 
 Place Piece
 1. The player clicks on an unused node to place a piece.
-2. If that node is unused a piece is displayed on board
-3. If node is used player will be informed to use an open node
+	1a. If that node is unused a piece is displayed on board
+	1b. If node is used player will be informed to use an open node
    
 Move Piece
 1. Player selects a pieces to move
-2. If this node is the player's then it is highlighted
-3. Player selects an empty space to move his piece to.
-4. If this is a legal move then selected piece is moved to this place
+   1a. If this node is the player's then it is highlighted
+   1b. If not then player is prompted to select his own piece
+2. Player selects an empty space to move his piece to.
+   2a. If this is a legal move then selected piece is moved to this place
+   2b. If not player is prompted to select an empty destination for his piece.
