@@ -20,9 +20,6 @@ add new features
 	-counter keep track of how many pieces
 	-instructions in game help menu
 
-uml diagram
-
-
 -created text version of use case diagram
 -decided on features we want to add
 
@@ -66,6 +63,19 @@ For next time:
                       - Start implementing new features
      
 Next meeting: Dec 2, 2014 @ 2:45ish     
-     
+
+
+***Meeting on Dec 2, 2014 @2:45***
+
+For next time:
+All		- Make use case scenarios and diagrams for each of our own use case description
+Zakk	- Make UI description
+Matthew	- Make class diagram
+Matt	- Describe AI algorithm
+
+we still need harder AI mode if we still want to implement that
+
+Next meeting Monday Dec 8, 2014 11:00am
+
      
      
