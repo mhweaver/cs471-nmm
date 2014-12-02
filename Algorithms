@@ -8,3 +8,20 @@ Node.mill() {
 	otherwise return false
 	//All nodes are part of a horizontal and vertical row of 3.  This covers all cases.
 }
+
+GetWinner method is called every turn
+GetWinner() {
+	if player 1 has no available moves
+		return player 2
+	if player 2 has no available moves
+		return player 1
+}
+
+Gui checks every turn to see if there are any valid moves available
+if not then it calls gameOver()
+gameOver() {
+	GetsWinner
+	Displays Winner animation
+	sets MovesBlocked to true // to stop any further gameplay
+	sets game display status to prompt player to start a new game
+}
