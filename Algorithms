@@ -25,3 +25,78 @@ gameOver() {
 	sets MovesBlocked to true // to stop any further gameplay
 	sets game display status to prompt player to start a new game
 }
+
+AI
+When instantiated, the AI gets a reference to the game, board, etc
+When it is the AI player's turn to make a move, it is directed to do so with
+the AI.doNextMove() method. This method looks at what the expected move is and
+applies a specific algorithm for that type of move:
+Place:
+  //Attempt to form a mill:
+  for each spot, s, on the board {
+    if (s is a potential mill for AI) {
+      place a piece on s
+      return
+    }
+  }
+  //If no mills can be formed, attempt to block mills:
+  for each spot, s, on the board {
+    if (s is a potential mill for the opponent) {
+      place a piece on s
+      return
+    } 
+  }
+  //Otherwise, place a piece on the intersection with the greatest number
+  //of open neighbors:
+  initialize variable for the best spot (best) = -1 
+  initialize variable for how many neighbors best has (bestNeighbors) = -1
+  for each spot, s, on the board {
+    if s is occupied, continue to next iteration of loop
+    sNeighbors = count the number of open neighbors s has
+    if sNeighbors > bestNeighbors {
+      best = s
+      bestNeighbors = sNeighbors
+    }
+  }
+  Place a piece on the best spot found (best)
+
+Move:
+  Make a copy of the game board, to test potential moves
+  for every piece, p owned by the AI {
+    for each open spot around n, s, on the copy {
+      move p to spot s, on the copy
+      if (spot s is now part of a mill) {
+        move p to s on the real board
+        return
+      }
+    }
+  }
+  If no mills can be formed, move a random piece to a random adjacent spot
+  
+Remove:
+  Create a list of all opponent pieces
+  try { Remove a random opponent piece }
+  catch (illegal move) { 
+    This piece can't be removed, so do nothing
+    The AI will keep being asked to remove a piece until it finds a valid one 
+  }
+  
+None:
+  The game is over, so do nothing
+
+"Is spot s a potential mill for player p?":
+(Description: Return true if placing a piece here will form a mill for p,
+Otherwise, return false)
+  If s is occupied, return false
+  left = the leftmost spot in s's row:
+    for (left = s; left.left != null; left = left.left);
+  top = the topmost spot in s's column:
+    for (left = s; left.left != null; left = left.left);
+  hCount = the number of spots player p owns in s's row:
+    Move left to the right, one spot at a time, incrementing hCount if p owns it
+  if hCount == 2, return true
+  vCount = the number of spots player p owns in s's column:
+    move top downward, one spot at a time, incrementing vCount if p owns it
+  if vCount == 2, return true
+  return false
+  
