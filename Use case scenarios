@@ -27,3 +27,38 @@ Move Piece - A Possible Scenario
    destination.
 5. The game updates and removes piece from source node and draws it on
    destination node. 
+   
+Remove Piece - Scenario - Should use :GUI, :Game, :Board, :Node, :Player 
+1. Player 1 clicks the node they wish to remove
+2. GUI asks Game.Board for the Node object corresponding to click location
+3. GUI asks game to do remove move on that Node
+3. Game checks and verifies that the expected move is Remove
+4. Game asks Node object for owner
+5. Game verifies owner is the Player 2 object
+7. Game verifies the piece is either not in a mill or all of Player 2's pieces are in mills 
+6. Game object directs Player 2 object to remove a piece
+7. Player 2 object adjusts piece counts
+8. Game asks both Player objects if they have available moves
+9. Both Player objects return true (in this scenario)
+10. Game sets expected next move to Move
+8. GUI requests the current Board from Game
+9. GUI redraws the board based on current Board object
+8. GUI requests next expected move from Game object
+9. If the expected move is None, GUI ends the game
+10. GUI awaits input
+
+New Game - Scenario - Should use :GUI, :Game, :Board, :Player
+1. Player clicks the New Game button
+2. GUI creates a new :Game instance
+3. GUI asks Game for player 2's Player object 
+3. GUI creates a new AI object using game and player 2 objects
+4. GUI requests the current Board from Game
+5. GUI redraws the board, based on the Board object
+6. GUI awaits input
+
+Exit - Scenario
+1. Player clicks the Exit button
+2. GUI immediately terminates the process, with exit code 0
+
+
+
