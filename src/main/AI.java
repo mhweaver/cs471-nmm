@@ -6,10 +6,12 @@ import java.util.Random;
 public class AI {
   private Game game;
   private Player me;
+  private boolean hardMode;
   
-  public AI(Player player, Game game) {
+  public AI(Player player, Game game, boolean hardMode) {
     this.me = player;
     this.game = game;
+    this.hardMode = hardMode;
   }
   
   public void doNextMove() throws IllegalMoveException {
