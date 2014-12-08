@@ -155,30 +155,28 @@ public class AI {
     }
     
     // Hard mode - Attempt to fly
-    if (hardMode) {
-      if (this.me.unplacedPieces() == 0 && this.me.piecesOnBoard() <= 3) {
-        // Loop through all pieces, looking for potential mills
-        for (int i = 0; i<24; i++) {
-          if (isPotentialMill(i, this.me)) { // Potential mill found
-            for (Node n : myNodes()) { // Loop through my pieces, to find the one that can be moved to form a mill
-              Node nScratch = scratch.getNode(n.getIndex());
-              // Move the piece on the scratch board to the potential mill
-              nScratch.setPlayer(null);
-              scratch.getNode(i).setPlayer(this.me);
-              if (scratch.getNode(i).mill()) { // Did a mill get formed? If so, make the move
-                try {
-                  this.game.movePiece(nScratch.getIndex(), i);
-                } catch (IllegalMoveException e) {
-                  // TODO Auto-generated catch block
-                  e.printStackTrace();
-                }
-                return;
+    if (hardMode && this.me.unplacedPieces() == 0 && this.me.piecesOnBoard() <= 3) {
+      // Loop through all pieces, looking for potential mills
+      for (int i = 0; i<24; i++) {
+        if (isPotentialMill(i, this.me)) { // Potential mill found
+          for (Node n : myNodes()) { // Loop through my pieces, to find the one that can be moved to form a mill
+            Node nScratch = scratch.getNode(n.getIndex());
+            // Move the piece on the scratch board to the potential mill
+            nScratch.setPlayer(null);
+            scratch.getNode(i).setPlayer(this.me);
+            if (scratch.getNode(i).mill()) { // Did a mill get formed? If so, make the move
+              try {
+                this.game.movePiece(nScratch.getIndex(), i);
+              } catch (IllegalMoveException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
               }
-              // A mill didn't form, so undo that move on the scratch board
-              nScratch.setPlayer(this.me);
-              scratch.getNode(i).setPlayer(null);
-              
+              return;
             }
+            // A mill didn't form, so undo that move on the scratch board
+            nScratch.setPlayer(this.me);
+            scratch.getNode(i).setPlayer(null);
+            
           }
         }
         

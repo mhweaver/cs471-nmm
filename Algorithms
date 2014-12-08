@@ -30,24 +30,27 @@ AI
 When instantiated, the AI gets a reference to the game, board, etc
 When it is the AI player's turn to make a move, it is directed to do so with
 the AI.doNextMove() method. This method looks at what the expected move is and
-applies a specific algorithm for that type of move:
+applies a specific algorithm for that type of move. When the AI object is
+instantiated, the difficulty level is passed as a boolean (hardMode):
 Place:
-  //Attempt to form a mill:
-  for each spot, s, on the board {
-    if (s is a potential mill for AI) {
-      place a piece on s
-      return
+  if hardMode {
+    //Attempt to form a mill:
+    for each spot, s, on the board {
+      if (s is a potential mill for AI) {
+        place a piece on s
+        return
+      }
+    }
+    //If no mills can be formed, attempt to block mills:
+    for each spot, s, on the board {
+      if (s is a potential mill for the opponent) {
+        place a piece on s
+        return
+      } 
     }
   }
-  //If no mills can be formed, attempt to block mills:
-  for each spot, s, on the board {
-    if (s is a potential mill for the opponent) {
-      place a piece on s
-      return
-    } 
-  }
-  //Otherwise, place a piece on the intersection with the greatest number
-  //of open neighbors:
+  //if easy mode or no mills formed or blocked, place a piece on the intersection 
+  //with the greatest number of open neighbors:
   initialize variable for the best spot (best) = -1 
   initialize variable for how many neighbors best has (bestNeighbors) = -1
   for each spot, s, on the board {
@@ -69,9 +72,32 @@ Move:
         move p to s on the real board
         return
       }
+      undo the move on the copy board
     }
   }
-  If no mills can be formed, move a random piece to a random adjacent spot
+  // If no mills can be formed:
+  // If hardMode, try to form a mill by flying
+  If hardMode and AI player can fly (3 or fewer pieces left on the board) {
+    for open spot s, on the board {
+      if s is a potential mill for the AI player {
+        // Find a piece that can be moved to s to form a mill
+        for each piece p, owned by the AI {
+          move p to spot s, on the copy board
+          if spot s is now part of a mill {
+            move p to s on the real board
+            return
+          }
+          undo the move on the copy board
+        }
+      }
+    }
+  }
+  
+  // Easy mode or flying couldn't create a mill:
+  if hardMode and AI player can fly {
+    move a random piece to a random spot (flying)
+  }
+  else, move a random piece to a random adjacent spot
   
 Remove:
   Create a list of all opponent pieces
