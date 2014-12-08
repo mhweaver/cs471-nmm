@@ -12,3 +12,18 @@ Move Piece - A Possible Scenario
    destination.
 5. The game updates and removes piece from source node and draws it on
    destination node. 
+
+Easy AI - Scenario
+1. The player clicks on the "Easy AI" radio button.
+2. The program starts a new game.
+3. White is a new human player, Black is a new Easy AI player.
+
+Hard AI - Scenario
+1. The player clicks on the "Hard AI" radio button.
+2. The program starts a new game.
+3. White is a new human player, Black is a new Hard AI player.
+
+2 Player - Scenario
+1. The player clicks on the "2 Player" radio button.
+2. The program starts a new game.
+3. White is a new human player, Black is a new human player.
