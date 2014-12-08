@@ -1,18 +1,3 @@
-Place Piece - A Possible Use Case Scenario
-1. Player 1 clicks on node in top left corner of board.
-2. Game checks and verifies that node is empty.
-3. Program updates game and draws Player 1's piece on
-   node in top left corner of board.
-   
-Move Piece - A Possible Scenario
-1. Player 1 selects one of their pieces to move.
-2. The game checks and verifies that that is one of Player 1's pieces.
-3. Player 1 selects a valid destination to move piece too.
-4. The game checks and verifies that the destination is a valid move 
-   destination.
-5. The game updates and removes piece from source node and draws it on
-   destination node. 
-
 Easy AI - Scenario
 1. The player clicks on the "Easy AI" radio button.
 2. The program starts a new game.
@@ -27,3 +12,18 @@ Hard AI - Scenario
 1. The player clicks on the "2 Player" radio button.
 2. The program starts a new game.
 3. White is a new human player, Black is a new human player.
+
+Place Piece - A Possible Use Case Scenario
+1. Player 1 clicks on node in top left corner of board.
+2. Game checks and verifies that node is empty.
+3. Program updates game and draws Player 1's piece on
+   node in top left corner of board.
+   
+Move Piece - A Possible Scenario
+1. Player 1 selects one of their pieces to move.
+2. The game checks and verifies that that is one of Player 1's pieces.
+3. Player 1 selects a valid destination to move piece too.
+4. The game checks and verifies that the destination is a valid move 
+   destination.
+5. The game updates and removes piece from source node and draws it on
+   destination node. 
