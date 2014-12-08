@@ -85,6 +85,10 @@ public class Game {
       throw new IllegalMoveException("Invalid move attempted (move)");
     }
     
+    if (from == to) {
+      throw new IllegalMoveException("Destination spot is the same as the source spot");
+    }
+    
     Node fromNode, toNode;
     fromNode = board.getNode(from);
     toNode = board.getNode(to);

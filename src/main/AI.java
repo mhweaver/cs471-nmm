@@ -33,7 +33,7 @@ public class AI {
 
   private void doPlacePiece() {
     // First, attempt to create mills
-    for (int i = 0; i<24; i++) {
+    for (int i = 0; i<24 && this.hardMode; i++) {
       if (isPotentialMill(i, me)) {
         try {
           game.placePiece(i);
@@ -46,7 +46,7 @@ public class AI {
     }
     
     // Next, attempt to block potential mills
-    for (int i = 0; i<24; i++) {
+    for (int i = 0; i<24 && this.hardMode; i++) {
       if (isPotentialMill(i, getOpponent())) {
         try {
           game.placePiece(i);
@@ -113,6 +113,7 @@ public class AI {
     
     // Find a mill-creating move
     for (Node n : myNodes()) {
+      if (!this.hardMode) break; // If this is easy mode, don't try to make mills
       int nIndex = n.getIndex();
       int dest = -1;
       Node nScratch = scratch.getNode(nIndex);
@@ -153,6 +154,37 @@ public class AI {
       nScratch.setPlayer(me);
     }
     
+    // Hard mode - Attempt to fly
+    if (hardMode) {
+      if (this.me.unplacedPieces() == 0 && this.me.piecesOnBoard() <= 3) {
+        // Loop through all pieces, looking for potential mills
+        for (int i = 0; i<24; i++) {
+          if (isPotentialMill(i, this.me)) { // Potential mill found
+            for (Node n : myNodes()) { // Loop through my pieces, to find the one that can be moved to form a mill
+              Node nScratch = scratch.getNode(n.getIndex());
+              // Move the piece on the scratch board to the potential mill
+              nScratch.setPlayer(null);
+              scratch.getNode(i).setPlayer(this.me);
+              if (scratch.getNode(i).mill()) { // Did a mill get formed? If so, make the move
+                try {
+                  this.game.movePiece(nScratch.getIndex(), i);
+                } catch (IllegalMoveException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+                }
+                return;
+              }
+              // A mill didn't form, so undo that move on the scratch board
+              nScratch.setPlayer(this.me);
+              scratch.getNode(i).setPlayer(null);
+              
+            }
+          }
+        }
+        
+      }
+    }
+    
     // No mills possible, so just do something random
     LinkedList<Node> myNodes = myNodes();
     Random r = new Random();
@@ -170,6 +202,11 @@ public class AI {
         case 4: 
         default: to = n.down;
       }
+      // Hard mode - Fly
+      if (hardMode && this.me.unplacedPieces() == 0 && this.me.piecesOnBoard() <= 3) {
+        // Set 'to' to a random node, which may or may not be adjacent to the node being moved
+        to = this.game.board.getNode(r.nextInt(23)); 
+      }
       if (to != null && to.getPlayer() == null) {
         try {
           game.movePiece(n.getIndex(), to.getIndex());
@@ -180,6 +217,7 @@ public class AI {
         return;
       }
     } while (true);
+  
   }
   
   protected boolean isPotentialMill(int index, Player player) {
