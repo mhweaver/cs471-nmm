@@ -90,7 +90,7 @@ Zakk	- hard mode AI radio button	(update gui description)
 Matt	- hard AI code (done)
 		- use case scenarios (remove piece, new game, and exit) (done)
 		- lessons learned
-		- describe tests from section 4.2
+		- describe tests from section 4.2 (done)
 
 Matthew	- start write up and create skeleton for all sections
 		- write section 1.1 and 1.3
