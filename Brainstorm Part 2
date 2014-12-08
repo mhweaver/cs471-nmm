@@ -77,5 +77,26 @@ we still need harder AI mode if we still want to implement that
 
 Next meeting Monday Dec 8, 2014 11:00am
 
-     
+***Meeting on Dec 8, 2014 @ 11:00***
+
+Next meeting on Thursday Dec 11, 2014 @ 3:00pm
+
+Zakk	- hard mode AI radio button	(update gui description)
+		- sequence diagrams
+		- use case scenarios (place and move)
+		- lessons learned
+		- junit tests for remaining gui items
+
+Matt	- hard AI code
+		- use case scenarios (remove piece, new game, and exit)
+		- lessons learned
+		- describe tests from section 4.2
+
+Matthew	- start write up and create skeleton for all sections
+		- write section 1.1 and 1.3
+		- lessons learned
+		- describe tests from section 4.1
+
+
+
      
