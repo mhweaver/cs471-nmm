@@ -40,6 +40,7 @@ public class GUI implements ActionListener, MouseListener {
 	private JButton exitGameButton;
 	protected JRadioButton twoPlayer;
 	protected JRadioButton computer;
+	protected JRadioButton computer2;
 	private ButtonGroup modeChoice;
 	private JFrame mainFrame;
 	protected JPanel centerPanel;
@@ -57,6 +58,7 @@ public class GUI implements ActionListener, MouseListener {
 	private JMenuItem exitItem;
 	
 	protected boolean AIMode;
+	protected boolean hardAIMode;
 	private AI ai;
 	private boolean movesBlocked = false;
 	private final int AI_DELAY = 1000;
@@ -91,6 +93,7 @@ public class GUI implements ActionListener, MouseListener {
 		boardLength = boardIcon.getIconHeight();
 		nodeLabels = new JLabel[24];
 		AIMode = false;
+		hardAIMode = false;
 		game = new Game();
 		
 		
@@ -138,11 +141,14 @@ public class GUI implements ActionListener, MouseListener {
 		twoPlayer = new JRadioButton("2 Player");
 		twoPlayer.addActionListener(this);
 		twoPlayer.setSelected(true);
-		computer = new JRadioButton("Computer");
+		computer = new JRadioButton("Easy AI");
 		computer.addActionListener(this);
+		computer2 = new JRadioButton("Hard AI");
+		computer2.addActionListener(this);
 		modeChoice = new ButtonGroup();
 		modeChoice.add(twoPlayer);
 		modeChoice.add(computer);
+		modeChoice.add(computer2);
 		remainWhiteLabel = new JLabel(" x 9", whiteIcon, JLabel.LEFT);
 		remainBlackLabel = new JLabel(" x 9", blackIcon, JLabel.LEFT);
 		westPanel = new JPanel();
@@ -151,6 +157,7 @@ public class GUI implements ActionListener, MouseListener {
 		westPanel.add(exitGameButton);
 		westPanel.add(twoPlayer);
 		westPanel.add(computer);
+		westPanel.add(computer2);
 		westPanel.add(remainWhiteLabel);
 		westPanel.add(remainBlackLabel);
 	}
@@ -197,7 +204,7 @@ public class GUI implements ActionListener, MouseListener {
 	public void newGame() {
 		game = new Game();
 		movesBlocked = false;
-		ai = new AI(game.player2, game);
+		ai = new AI(game.player2, game, hardAIMode);
 		redrawBoard();
 	}
 	
@@ -303,10 +310,17 @@ public class GUI implements ActionListener, MouseListener {
 			newGame();
 		if(ae.getSource().equals(twoPlayer)) {
 			AIMode = false;
+			hardAIMode = false;
 			newGame();
 		}
 		if(ae.getSource().equals(computer)) {
 			AIMode = true;
+			hardAIMode = false;
+			newGame();
+		}
+		if(ae.getSource().equals(computer2)) {
+			AIMode = true;
+			hardAIMode = true;
 			newGame();
 		}
 		if(ae.getSource().equals(helpItem)) {
