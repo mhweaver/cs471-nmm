@@ -1,17 +1,29 @@
-Easy AI - Scenario
+Easy AI - Scenario - Should use :GUI, :Game, :Player, :AI
 1. The player clicks on the "Easy AI" radio button.
-2. The program starts a new game.
-3. White is a new human player, Black is a new Easy AI player.
+2. :GUI creates a new :Game instance
+3. The new :Game returns
+4. :GUI asks :Game for player 2's :Player 
+5. :GUI creates a new Easy :AI using :Game and player2:Player
+6. New :AI returns
+7. :GUI awaits input
 
-Hard AI - Scenario
-1. The player clicks on the "Hard AI" radio button.
-2. The program starts a new game.
-3. White is a new human player, Black is a new Hard AI player.
+Hard AI - Scenario - Should use :GUI, :Game, :Player, :AI
+1. The player clicks on the "Easy AI" radio button.
+2. :GUI creates a new :Game instance
+3. The new :Game returns
+4. :GUI asks :Game for player 2's :Player 
+5. :GUI creates a new Hard :AI using :Game and player2:Player
+6. New :AI returns
+7. :GUI awaits input
 
-Player - Scenario
+2 Player - Scenario - Should use :GUI, :Game, :Player, :AI
 1. The player clicks on the "2 Player" radio button.
-2. The program starts a new game.
-3. White is a new human player, Black is a new human player.
+2. :GUI creates a new :Game instance
+3. The new :Game returns
+4. :GUI asks :Game for player 2's :Player 
+5. :GUI creates a new Easy :AI using :Game and player2:Player, which is unused
+6. New :AI returns
+7. :GUI awaits input
 
 Place Piece - A Possible Use Case Scenario
 1. Player 1 clicks on node in top left corner of board.
