@@ -8,25 +8,33 @@ Hard AI - Scenario
 2. The program starts a new game.
 3. White is a new human player, Black is a new Hard AI player.
 
-2 Player - Scenario
+Player - Scenario
 1. The player clicks on the "2 Player" radio button.
 2. The program starts a new game.
 3. White is a new human player, Black is a new human player.
 
 Place Piece - A Possible Use Case Scenario
 1. Player 1 clicks on node in top left corner of board.
-2. Game checks and verifies that node is empty.
-3. Program updates game and draws Player 1's piece on
-   node in top left corner of board.
+2. GUI asks Game if node is valid
+3. Game asks Node which player selected node belongs to
+4. Node returns null
+5. Game returns success
+6. GUI re-draws board with Player 1's piece on node 
+   in top left corner.
    
 Move Piece - A Possible Scenario
 1. Player 1 selects one of their pieces to move.
-2. The game checks and verifies that that is one of Player 1's pieces.
-3. Player 1 selects a valid destination to move piece too.
-4. The game checks and verifies that the destination is a valid move 
-   destination.
-5. The game updates and removes piece from source node and draws it on
-   destination node. 
+2. Gui asks Game if selected piece is valid.
+3. Game asks Node who owns node
+4. Node returns Player 1
+5. Game returns success.
+6. Gui highlights selected piece.
+7. Player 1 selects a valid destination to move piece too.
+8. Gui asks Game if destination is valid.
+9. Game asks Node who owns node
+10.Node returns null
+11.Game returns success.
+12.Gui moves piece from source to destination.
    
 Remove Piece - Scenario - Should use :GUI, :Game, :Board, :Node, :Player 
 1. Player 1 clicks the node they wish to remove
