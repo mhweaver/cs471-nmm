@@ -12,10 +12,11 @@ import org.junit.Test;
 
 public class TestGUI {
 	GUI gui;
+	Game game;
+	Board board;
 
 	@Test
 	public final void testNewGameButton() {
-		gui = new GUI();
 		Game g1 = TestAccessor.GUI.getGUIGame(gui);
 		TestAccessor.GUI.getNewGameButton(gui).doClick();
 		Game g2 = TestAccessor.GUI.getGUIGame(gui);
@@ -24,7 +25,6 @@ public class TestGUI {
 	
 	@Test
 	public final void testEasyAIButton() {
-		gui = new GUI();
 		Game g1 = TestAccessor.GUI.getGUIGame(gui);
 		TestAccessor.GUI.getComputerButton(gui).doClick();
 		Game g2 = TestAccessor.GUI.getGUIGame(gui);
@@ -34,7 +34,6 @@ public class TestGUI {
 	
 	@Test
   public final void testHardAIButton() {
-    gui = new GUI();
     Game g1 = TestAccessor.GUI.getGUIGame(gui);
     TestAccessor.GUI.getHardAIButton(gui).doClick();
     Game g2 = TestAccessor.GUI.getGUIGame(gui);
@@ -45,7 +44,6 @@ public class TestGUI {
 	
 	@Test
 	public final void testTwoPlayerButton() {
-		gui = new GUI();
 		Game g1 = TestAccessor.GUI.getGUIGame(gui);
 		TestAccessor.GUI.getComputerButton(gui).doClick();
 		TestAccessor.GUI.getTwoPlayerButton(gui).doClick();
@@ -56,7 +54,6 @@ public class TestGUI {
 	
 	@Test
 	public final void testPlacePiece() {
-		gui = new GUI();
 		MouseEvent me = new MouseEvent(TestAccessor.GUI.getCenterPanel(gui),
 				MouseEvent.MOUSE_PRESSED,1,0,30,30,0,false);
 		gui.mousePressed(me);
@@ -66,9 +63,42 @@ public class TestGUI {
 		assertEquals(nodes[0].getPlayer(), TestAccessor.Game.getPlayer1(game));
 	}
 	
+	@Test
+  public final void testMovePiece() {
+	  Player player1 = TestAccessor.Game.getPlayer1(game);
+	  TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Move);
+	  board.getNode(0).setPlayer(player1);
+    MouseEvent me = new MouseEvent(TestAccessor.GUI.getCenterPanel(gui),
+        MouseEvent.MOUSE_PRESSED,1,0,30,30,0,false);
+    gui.mousePressed(me);
+    me = new MouseEvent(TestAccessor.GUI.getCenterPanel(gui),
+        MouseEvent.MOUSE_PRESSED,1,0,320,30,0,false);
+    gui.mousePressed(me);
+    Node[] nodes = TestAccessor.Board.getNodes(board);
+    assertNull(nodes[0].getPlayer());
+    assertEquals(nodes[1].getPlayer(), player1);
+  }
+	
+	@Test
+  public final void testRemovePiece() {
+    Player player2 = TestAccessor.Game.getPlayer2(game);
+    TestAccessor.Game.setExpectedMove(game, TestAccessor.Game.Remove);
+    board.getNode(0).setPlayer(player2);
+    Node[] nodes = TestAccessor.Board.getNodes(board);
+    assertEquals(nodes[0].getPlayer(), player2);
+    
+    MouseEvent me = new MouseEvent(TestAccessor.GUI.getCenterPanel(gui),
+        MouseEvent.MOUSE_PRESSED,1,0,30,30,0,false);
+    gui.mousePressed(me);
+    nodes = TestAccessor.Board.getNodes(board);
+    assertNull(nodes[0].getPlayer());
+  }
 	
 	@Before
 	public void setUp() throws Exception {
+	  gui = new GUI();
+	  game = TestAccessor.GUI.getGUIGame(gui);
+	  board = TestAccessor.Game.getBoard(game);
 	}
 
 	@After
