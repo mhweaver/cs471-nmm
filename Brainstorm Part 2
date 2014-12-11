@@ -100,4 +100,5 @@ Matthew	- start write up and create skeleton for all sections
 
 BUG: Against Easy AI, I trapped 3 pieces and captured the rest.  The AI went in infinite loop.
 It's not game over because he has flying pieces, but refuses to use them.
+-Should be fixed now -Matt
      

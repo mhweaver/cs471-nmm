@@ -200,8 +200,8 @@ public class AI {
         case 4: 
         default: to = n.down;
       }
-      // Hard mode - Fly
-      if (hardMode && this.me.unplacedPieces() == 0 && this.me.piecesOnBoard() <= 3) {
+      // Attempt to fly
+      if (this.me.unplacedPieces() == 0 && this.me.piecesOnBoard() <= 3) {
         // Set 'to' to a random node, which may or may not be adjacent to the node being moved
         to = this.game.board.getNode(r.nextInt(23)); 
       }
