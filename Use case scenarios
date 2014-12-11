@@ -30,40 +30,47 @@ Move Piece - A Possible Scenario
    
 Remove Piece - Scenario - Should use :GUI, :Game, :Board, :Node, :Player 
 1. Player 1 clicks the node they wish to remove
-2. :GUI asks :Game for current expectedMove
-3. :Game returns Move.Remove
-4. :GUI asks :Game for the :Node corresponding to where Player 1 clicked
-5. :Game returns the requested :Node object
-6. :GUI asks Game to do a remove move on that :Node
-7. :Board asks :Node for its :Player object
-8. :Node returns Player 2's :Player
-9. :Game informs :Player that it's getting a piece removed 
-10. :Player returns
-11. :Game asks :Node to remove its player and become "selected"
-12. :Node returns
-13. :Game asks both :Players if they have available moves
-14. Both :Players return true
-15. :Game returns (remove move is complete)
-16. :GUI asks :Game for all :Nodes
-17. :Game returns all :Nodes
-18. :GUI asks each :Node for its :Player's color
-19. Each :Node asks its :Player for its color
-20. Each :Player returns its color
-21. Each :Node returns its :Player's color
-22. :GUI asks :Game for player1:Player and player2:Player
-23. :Game returns both :Players
-24. :GUI asks :Players for piece counts
-25. :Players return piece counts
-26. :GUI redraws board and returns
+2. :GUI asks :Game for the :Node corresponding to where Player 1 clicked
+3. :Game returns the requested :Node object
+4. :GUI asks Game to do a remove move on that :Node
+5. :Board asks :Node for its :Player object
+6. :Node returns Player 2's :Player
+7. :Game informs :Player that it's getting a piece removed 
+8. :Player returns
+9. :Game asks :Node to remove its player and become "selected"
+10. :Node returns
+11. :Game asks both :Players if they have available moves
+12. Both :Players return true
+13. :Game returns (remove move is complete)
+14. :GUI asks :Game for :Board
+15. :Game returns :Board
+16. :GUI asks :Board for all :Nodes, for redrawing board
+17. :Board returns all :Nodes
+18. :GUI asks :Game for player1:Player and player2:Player
+19. :Game returns both :Players
+20. :GUI asks :Players for piece counts
+21. :Players return piece counts
+22. :GUI displays counts and awaits input
 
 New Game - Scenario - Should use :GUI, :Game, :Board, :Player
 1. Player clicks the New Game button
-2. GUI creates a new :Game instance
-3. GUI asks Game for player 2's Player object 
-3. GUI creates a new AI object using game and player 2 objects
-4. GUI requests the current Board from Game
-5. GUI redraws the board, based on the Board object
-6. GUI awaits input
+2. :GUI creates a new :Game instance
+3. :Game creates new :Board
+4. :Board creates 24 new :Nodes
+5. :Board sets up each :Node with its location information and neighbors
+6. :Each :Node returns
+7. The new :Board returns
+8. :Game creates 2 new :Players
+9. :Game asks :Players to set their colors and names
+10. The new :Players return
+11. The new :Game returns
+12. :GUI asks :Game for player 2's :Player 
+13. :GUI creates a new :AI using :Game and player2:Player
+14. New :AI returns
+15. :GUI requests the current :Board from :Game
+16. :Game returns :Board
+17. :GUI redraws the board, based on the :Board object
+18. :GUI awaits input
 
 Exit - Scenario
 1. Player clicks the Exit button
