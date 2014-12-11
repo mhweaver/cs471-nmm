@@ -18,9 +18,15 @@ public class TestAccessor {
 		public static boolean getGUIAIMode(main.GUI gui) {
 			return gui.AIMode;
 		}
+		public static boolean getGUIHardAIMode(main.GUI gui) {
+      return gui.hardAIMode;
+    }
 		public static JRadioButton getComputerButton(main.GUI gui) {
 			return gui.computer;
 		}
+		public static JRadioButton getHardAIButton(main.GUI gui) {
+      return gui.computer2;
+    }
 		public static JRadioButton getTwoPlayerButton(main.GUI gui) {
 			return gui.twoPlayer;
 		}

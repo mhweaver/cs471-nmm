@@ -150,6 +150,7 @@ public class TestAI {
           if (currPlayer == aiPlayer) ai.doNextMove();
           else ai1.doNextMove();
         }
+//      System.out.println("Winner: " + game.getWinner().name);
       } catch (IllegalMoveException e) {
         e.printStackTrace();
         fail();

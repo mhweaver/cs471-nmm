@@ -23,7 +23,7 @@ public class TestGUI {
 	}
 	
 	@Test
-	public final void testComputerButton() {
+	public final void testEasyAIButton() {
 		gui = new GUI();
 		Game g1 = TestAccessor.GUI.getGUIGame(gui);
 		TestAccessor.GUI.getComputerButton(gui).doClick();
@@ -31,6 +31,17 @@ public class TestGUI {
 		assertNotEquals(g1,g2);
 		assertTrue(TestAccessor.GUI.getGUIAIMode(gui));
 	}
+	
+	@Test
+  public final void testHardAIButton() {
+    gui = new GUI();
+    Game g1 = TestAccessor.GUI.getGUIGame(gui);
+    TestAccessor.GUI.getHardAIButton(gui).doClick();
+    Game g2 = TestAccessor.GUI.getGUIGame(gui);
+    assertNotEquals(g1,g2);
+    assertTrue(TestAccessor.GUI.getGUIAIMode(gui));
+    assertTrue(TestAccessor.GUI.getGUIHardAIMode(gui));
+  }
 	
 	@Test
 	public final void testTwoPlayerButton() {
