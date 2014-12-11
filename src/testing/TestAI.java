@@ -21,7 +21,7 @@ public class TestAI {
     game = new Game();
     aiPlayer = TestAccessor.Game.getPlayer2(game);
     
-    ai = new AI(aiPlayer, game);
+    ai = new AI(aiPlayer, game, true);
   }
 
   @After
