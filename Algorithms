@@ -94,7 +94,7 @@ Move:
   }
   
   // Easy mode or flying couldn't create a mill:
-  if hardMode and AI player can fly {
+  if AI player can fly {
     move a random piece to a random spot (flying)
   }
   else, move a random piece to a random adjacent spot
