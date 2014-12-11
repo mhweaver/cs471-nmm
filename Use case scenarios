@@ -1,40 +1,58 @@
-Easy AI - Scenario
+Easy AI - Scenario - Should use :GUI, :Game, :Player, :AI
 1. The player clicks on the "Easy AI" radio button.
-2. The program starts a new game.
-3. White is a new human player, Black is a new Easy AI player.
+2. :GUI creates a new :Game instance
+3. The new :Game returns
+4. :GUI asks :Game for player 2's :Player 
+5. :GUI creates a new Easy :AI using :Game and player2:Player
+6. New :AI returns
+7. :GUI awaits input
 
-Hard AI - Scenario
-1. The player clicks on the "Hard AI" radio button.
-2. The program starts a new game.
-3. White is a new human player, Black is a new Hard AI player.
+Hard AI - Scenario - Should use :GUI, :Game, :Player, :AI
+1. The player clicks on the "Easy AI" radio button.
+2. :GUI creates a new :Game instance
+3. The new :Game returns
+4. :GUI asks :Game for player 2's :Player 
+5. :GUI creates a new Hard :AI using :Game and player2:Player
+6. New :AI returns
+7. :GUI awaits input
 
-Player - Scenario
+2 Player - Scenario - Should use :GUI, :Game, :Player, :AI
 1. The player clicks on the "2 Player" radio button.
-2. The program starts a new game.
-3. White is a new human player, Black is a new human player.
+2. :GUI creates a new :Game instance
+3. The new :Game returns
+4. :GUI asks :Game for player 2's :Player 
+5. :GUI creates a new Easy :AI using :Game and player2:Player, which is unused
+6. New :AI returns
+7. :GUI awaits input
 
 Place Piece - A Possible Use Case Scenario
 1. Player 1 clicks on node in top left corner of board.
-2. GUI asks Game if node is valid
-3. Game asks Node which player selected node belongs to
-4. Node returns null
-5. Game returns success
-6. GUI re-draws board with Player 1's piece on node 
+2. :GUI asks :Game if node is valid
+3. :Game asks :Node which player selected node belongs to
+4. :Node returns null
+5. :Game returns success
+6. :Gui asks :Game for updated :Board.
+7. :Game returns :Board
+8. :GUI re-draws board with Player 1's piece on node 
    in top left corner.
    
 Move Piece - A Possible Scenario
-1. Player 1 selects one of their pieces to move.
-2. Gui asks Game if selected piece is valid.
-3. Game asks Node who owns node
-4. Node returns Player 1
-5. Game returns success.
-6. Gui highlights selected piece.
-7. Player 1 selects a valid destination to move piece too.
-8. Gui asks Game if destination is valid.
-9. Game asks Node who owns node
-10.Node returns null
-11.Game returns success.
-12.Gui moves piece from source to destination.
+1. Player 1 selects one of their pieces to move
+2. :GUI asks :Game if selected piece is valid
+3. :Game asks :Node who owns node of selected piece
+4. :Node returns Player 1
+5. :Game returns success
+6. :Gui asks game for updated :Board
+7. :Game returns :Board
+8. :GUI re-draws board with selected piece highlighted
+7. Player 1 selects a valid destination to move piece too
+8. :Gui asks :Game if destination is valid
+9. :Game asks :Node who owns node
+10.:Node returns null
+11. :Game returns success
+12. :GUI asks :Game for updated :Board
+13. :Game returns :Board
+14: :Gui re-draws board to include moved piece
    
 Remove Piece - Scenario - Should use :GUI, :Game, :Board, :Node, :Player 
 1. Player 1 clicks the node they wish to remove
@@ -76,7 +94,7 @@ New Game - Scenario - Should use :GUI, :Game, :Board, :Player
 
 Exit - Scenario
 1. Player clicks the Exit button
-2. GUI immediately terminates the process, with exit code 0
+2. :GUI immediately terminates the process, with exit code 0
 
 
 
