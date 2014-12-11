@@ -137,5 +137,77 @@ public class TestAI {
     assertFalse(mynodes.contains(nodes[6]));
     
   }
+  
+  @Test
+  public final void testHardVsHard() {
+    for (int i = 0; i < 10; i++) {
+      try {
+        setUp();
+        Player aiPlayer1 = TestAccessor.Game.getPlayer1(game);
+        AI ai1 = new AI(aiPlayer1, game, true);
+        while (game.getWinner() == null) {
+          Player currPlayer = TestAccessor.Game.getCurrentPlayer(game);
+          if (currPlayer == aiPlayer) ai.doNextMove();
+          else ai1.doNextMove();
+        }
+      } catch (IllegalMoveException e) {
+        e.printStackTrace();
+        fail();
+      } catch (Exception e) {
+        e.printStackTrace();
+        fail();
+      }
+    }
+  }
+  
+  @Test
+  public final void testEasyVsHard() {
+    for (int i = 0; i < 10; i++) {
+      try {
+        setUp();
+        Player aiPlayer1 = TestAccessor.Game.getPlayer1(game);
+        AI ai1 = new AI(aiPlayer1, game, false);
+        while (game.getWinner() == null) {
+          Player currPlayer = TestAccessor.Game.getCurrentPlayer(game);
+          if (currPlayer == aiPlayer) ai.doNextMove();
+          else ai1.doNextMove();
+        }
+//        System.out.println("Winner: " + game.getWinner().name);
+      } catch (IllegalMoveException e) {
+        e.printStackTrace();
+        fail();
+      } catch (Exception e) {
+        e.printStackTrace();
+        fail();
+      }
+    }
+  }
+  
+  @Test
+  public final void testEasyVsEasy() {
+    for (int i = 0; i < 10; i++) {
+      try {
+        setUp();
+        ai = new AI(aiPlayer, game, false);
+        Player aiPlayer1 = TestAccessor.Game.getPlayer1(game);
+        AI ai1 = new AI(aiPlayer1, game, false);
+        while (game.getWinner() == null) {
+          Player currPlayer = TestAccessor.Game.getCurrentPlayer(game);
+          if (currPlayer == aiPlayer) ai.doNextMove();
+          else ai1.doNextMove();
+        }
+//        System.out.println("Winner: " + game.getWinner().name);
+      } catch (IllegalMoveException e) {
+        e.printStackTrace();
+        fail();
+      } catch (Exception e) {
+        e.printStackTrace();
+        fail();
+      }
+    }
+  }
+  
+  
+  
 
 }
