@@ -50,15 +50,9 @@ Remove Piece - Scenario - Should use :GUI, :Game, :Board, :Node, :Player
 11. :Game asks both :Players if they have available moves
 12. Both :Players return true
 13. :Game returns (remove move is complete)
-14. :GUI asks :Game for :Board
-15. :Game returns :Board
-16. :GUI asks :Board for all :Nodes, for redrawing board
-17. :Board returns all :Nodes
-18. :GUI asks :Game for player1:Player and player2:Player
-19. :Game returns both :Players
-20. :GUI asks :Players for piece counts
-21. :Players return piece counts
-22. :GUI displays counts and awaits input
+14. :GUI asks :Game for :Board and both :Players
+15. :Game returns :Board and :Players
+16. :GUI redraws board, based on :Board and :Players, then awaits input
 
 New Game - Scenario - Should use :GUI, :Game, :Board, :Player
 1. Player clicks the New Game button
